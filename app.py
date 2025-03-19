@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory
 import requests
 import os
 import json
@@ -31,10 +31,10 @@ client = OpenAI(
 
 # Load HIMASIF data from JSON file
 def load_himasif_data():
-    json_file_path = os.path.join(os.path.dirname(__file__), 'static', 'data', 'himasif_data.json')
+    json_file_path = os.path.join(os.path.dirname(__file__), 'data', 'himasif_data.json')
     possible_locations = [
         json_file_path,
-        os.path.join(os.path.dirname(__file__), 'static', 'himasif_data.json'),
+        os.path.join(os.path.dirname(__file__), '..', 'data', 'himasif_data.json'),
         os.path.join(os.path.dirname(__file__), 'himasif_data.json'),
         'himasif_data.json'
     ]
@@ -156,15 +156,12 @@ def health_check():
             timeout=10
         )
         api_status = "connected" if response.status_code == 200 else "unavailable"
-        ollama_status = api_status  # For compatibility with frontend
     except Exception:
         api_status = "unavailable"
-        ollama_status = "unavailable"
     
     return jsonify({
         "service": "healthy",
         "api_status": api_status,
-        "ollama_status": ollama_status,  # For compatibility with frontend
         "himasif_data": "loaded" if himasif_data else "not loaded"
     })
 
@@ -213,10 +210,24 @@ def chat():
         logger.error(f"Unexpected error: {str(e)}")
         return jsonify({"error": f"Kesalahan server: {str(e)}"}), 500
 
-# Serve frontend files from templates and static folders
+# Serve frontend files
 @app.route("/")
-def index():
-    return render_template('index.html')
+def serve_frontend():
+    frontend_path = os.path.join(os.path.dirname(__file__), "..", "frontend")
+    index_path = os.path.join(frontend_path, "index.html")
+    if not os.path.exists(index_path):
+        logger.error(f"Frontend index.html not found at: {index_path}")
+        return "Frontend not found", 404
+    return send_from_directory(frontend_path, "index.html")
+
+@app.route("/<path:filename>")
+def serve_static(filename):
+    frontend_path = os.path.join(os.path.dirname(__file__), "..", "frontend")
+    file_path = os.path.join(frontend_path, filename)
+    if not os.path.exists(file_path):
+        logger.error(f"Static file not found: {file_path}")
+        return "File not found", 404
+    return send_from_directory(frontend_path, filename)
 
 if __name__ == "__main__":
     logger.info("=== HIMASIF Assistant Server Starting ===")
@@ -238,10 +249,9 @@ if __name__ == "__main__":
     except Exception as e:
         logger.warning(f"⚠️ Could not connect to OpenRouter API: {str(e)}")
     
-    port = int(os.environ.get('PORT', 5000))
-    logger.info(f"Starting server on port {port}")
+    logger.info("Starting server on http://127.0.0.1:5000")
     try:
-        app.run(debug=False, host="0.0.0.0", port=port)
+        app.run(debug=True, host="127.0.0.1", port=5000)
     except KeyboardInterrupt:
         logger.info("Server stopped by user")
     except Exception as e:
