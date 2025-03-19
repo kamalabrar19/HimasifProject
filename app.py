@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, render_template, send_from_directory
 import requests
 import os
 import json
@@ -31,30 +31,67 @@ client = OpenAI(
 
 # Load HIMASIF data from JSON file
 def load_himasif_data():
-    json_file_path = os.path.join(os.path.dirname(__file__), 'data', 'himasif_data.json')
+    # Cari di folder saat ini dan subfolder
+    current_dir = os.path.dirname(os.path.abspath(__file__))
     possible_locations = [
-        json_file_path,
-        os.path.join(os.path.dirname(__file__), '..', 'data', 'himasif_data.json'),
-        os.path.join(os.path.dirname(__file__), 'himasif_data.json'),
-        'himasif_data.json'
+        os.path.join(current_dir, 'static', 'data', 'himasif_data.json'),
+        os.path.join(current_dir, 'static', 'himasif_data.json'),
+        os.path.join(current_dir, 'data', 'himasif_data.json'),
+        os.path.join(current_dir, 'himasif_data.json'),
+        # Jalur absolut untuk debugging
+        'D:\\my-chatbot-project\\static\\data\\himasif_data.json'
     ]
+    
+    # Log semua lokasi yang dicoba
+    logger.info(f"Mencoba mencari himasif_data.json di lokasi berikut: {possible_locations}")
+    
     for location in possible_locations:
         try:
+            logger.info(f"Mencoba membuka file dari: {location}")
             if os.path.exists(location):
+                logger.info(f"File ditemukan di: {location}")
                 with open(location, 'r', encoding='utf-8') as file:
                     data = json.load(file)
                     logger.info(f"✅ Successfully loaded HIMASIF data from {location}")
                     return data
+            else:
+                logger.info(f"File tidak ditemukan di: {location}")
         except json.JSONDecodeError as e:
             logger.error(f"JSON parsing error at {location}: {str(e)}")
-            return None
         except Exception as e:
             logger.error(f"Error loading file at {location}: {str(e)}")
-            return None
     
-    logger.warning(f"⚠️ Failed to find HIMASIF data in any location: {possible_locations}")
-    return {}
+    # Sebagai fallback, coba buat data kosong yang dapat digunakan
+    logger.warning(f"⚠️ Failed to find HIMASIF data in any location. Creating default data.")
+    
+    # Data minimal sebagai fallback
+    default_data = {
+        "organization": {
+            "name": "HIMASIF (Himpunan Mahasiswa Sistem Informasi)",
+            "university": "Universitas Pembangunan Jaya",
+            "vision": "Menjadi himpunan yang unggul dalam pengembangan teknologi informasi.",
+            "mission": ["Mengembangkan minat dan bakat mahasiswa Sistem Informasi"],
+            "social_media": {
+                "instagram": "https://www.instagram.com/himasif360upj/",
+                "youtube": "https://www.youtube.com/@sisteminformasiupj8380"
+            }
+        },
+        "defaultResponse": "Maaf, saya masih dalam tahap pengembangan dan belum memiliki data lengkap."
+    }
+    
+    # Coba simpan data default ke file untuk penggunaan berikutnya
+    try:
+        os.makedirs(os.path.join(current_dir, 'static', 'data'), exist_ok=True)
+        default_file_path = os.path.join(current_dir, 'static', 'data', 'himasif_data.json')
+        with open(default_file_path, 'w', encoding='utf-8') as f:
+            json.dump(default_data, f, ensure_ascii=False, indent=2)
+        logger.info(f"Default data saved to {default_file_path}")
+    except Exception as e:
+        logger.error(f"Couldn't save default data: {str(e)}")
+    
+    return default_data
 
+# Load data saat aplikasi dimulai
 himasif_data = load_himasif_data()
 
 # Function to format response text with Markdown to HTML conversion
@@ -156,12 +193,14 @@ def health_check():
             timeout=10
         )
         api_status = "connected" if response.status_code == 200 else "unavailable"
+        ollama_status = api_status  # Untuk kompatibilitas dengan frontend
     except Exception:
         api_status = "unavailable"
+        ollama_status = "unavailable"
     
     return jsonify({
         "service": "healthy",
-        "api_status": api_status,
+        "ollama_status": ollama_status,  # Untuk kompatibilitas dengan frontend
         "himasif_data": "loaded" if himasif_data else "not loaded"
     })
 
@@ -210,25 +249,12 @@ def chat():
         logger.error(f"Unexpected error: {str(e)}")
         return jsonify({"error": f"Kesalahan server: {str(e)}"}), 500
 
-# Serve frontend files
+# Serve frontend files - DIUBAH untuk menggunakan Flask templates
 @app.route("/")
-def serve_frontend():
-    frontend_path = os.path.join(os.path.dirname(__file__), "..", "frontend")
-    index_path = os.path.join(frontend_path, "index.html")
-    if not os.path.exists(index_path):
-        logger.error(f"Frontend index.html not found at: {index_path}")
-        return "Frontend not found", 404
-    return send_from_directory(frontend_path, "index.html")
+def index():
+    return render_template('index.html')
 
-@app.route("/<path:filename>")
-def serve_static(filename):
-    frontend_path = os.path.join(os.path.dirname(__file__), "..", "frontend")
-    file_path = os.path.join(frontend_path, filename)
-    if not os.path.exists(file_path):
-        logger.error(f"Static file not found: {file_path}")
-        return "File not found", 404
-    return send_from_directory(frontend_path, filename)
-
+# Untuk host di Render
 if __name__ == "__main__":
     logger.info("=== HIMASIF Assistant Server Starting ===")
     if himasif_data:
@@ -249,9 +275,12 @@ if __name__ == "__main__":
     except Exception as e:
         logger.warning(f"⚠️ Could not connect to OpenRouter API: {str(e)}")
     
-    logger.info("Starting server on http://127.0.0.1:5000")
+    # Gunakan port dari environment variable (untuk Render)
+    port = int(os.environ.get('PORT', 5000))
+    host = os.environ.get('HOST', '0.0.0.0')
+    logger.info(f"Starting server on http://{host}:{port}")
     try:
-        app.run(debug=True, host="127.0.0.1", port=5000)
+        app.run(debug=False, host=host, port=port)
     except KeyboardInterrupt:
         logger.info("Server stopped by user")
     except Exception as e:
