@@ -1,0 +1,220 @@
+{
+  "organization": {
+    "name": "HIMASIF (Himpunan Mahasiswa Sistem Informasi)",
+    "university": "Universitas Pembangunan Jaya",
+    "description": "HIMASIF adalah Himpunan Mahasiswa Sistem Informasi di Universitas Pembangunan Jaya yang bertujuan untuk mengembangkan potensi mahasiswa di bidang teknologi informasi.",
+    "vision": "Mewujudkan HIMASIF sebagai wadah yang inovatif, inklusif, dan profesional dalam mendukung pengembangan akademik, keterampilan, serta rasa kekeluargaan seluruh anggota HIMASIF.",
+    "mission": [
+      "Menanamkan rasa cinta dan solidaritas terhadap Program Studi dan Himpunan Mahasiswa Sistem Informasi melalui penggunaan PDH HIMASIF setiap hari senin berdasarkan AD/ART",
+      "Memfasilitasi dan mengembangkan skill serta pemahaman akademik civitas akademika HIMASIF melalui inovasi divisi Riset dan Pengembangan",
+      "Menyediakan wadah untuk civitas akademika HIMASIF dapat memberikan kritik dan saran yang akan dikaji secara inklusif dan profesional",
+      "Mengembangkan kolaborasi strategis untuk memperkuat eksistensi dan nama baik Program Studi dan Himpunan Mahasiswa Sistem Informasi"
+    ],
+    "tagline": "We Make IT Happen",
+    "hashtags": [
+      "#sisteminformasi",
+      "#sifupj",
+      "#himasif360upj",
+      "#WeMakeITHappen"
+    ]
+  },
+  "leadership": {
+    "bph": [
+      {"id": 1, "name": "Mutiara Fitria Azzahra", "position": "Ketua HIMASIF", "nim": "2023081014"},
+      {"id": 2, "name": "Muhammad Rivaldo Firdaus", "position": "Wakil Ketua HIMASIF", "nim": "2023081045"},
+      {"id": 3, "name": "Mada Kaila Mulya", "position": "Sekretaris I", "nim": "2023081010"},
+      {"id": 4, "name": "Serena Mariana Lalang Puling", "position": "Sekretaris II", "nim": "2024081021"},
+      {"id": 5, "name": "Yohana Citra Simamora", "position": "Bendahara I", "nim": "2023081012"},
+      {"id": 6, "name": "Andi Muhammad Nauval R.", "position": "Bendahara II", "nim": "2023081039"}
+    ],
+    "department_heads": {
+      "PSDM": {
+        "head": {"id": 7, "name": "Muhammad Rifadh Athallah", "position": "Ketua Departemen PSDM", "nim": "2023081020"},
+        "vice_head": {"id": 8, "name": "Ezra Jelianti Silaban", "position": "Wakil Ketua Departemen PSDM", "nim": "2024081018"}
+      },
+      "Relasi": {
+        "head": {"id": 27, "name": "Raira Salsabila", "position": "Ketua Departemen Relasi", "nim": "2023081029"},
+        "vice_head": {"id": 28, "name": "Bianca Sabina Yunas", "position": "Wakil Ketua Departemen Relasi", "nim": "2023081004"}
+      }
+    }
+  },
+  "departments": [
+    {
+      "id": "PSDM",
+      "name": "PSDM",
+      "fullName": "Pengembangan Sumber Daya Mahasiswa",
+      "divisions": [
+        {
+          "id": "Advokasi",
+          "name": "Advokasi",
+          "fullName": "Advokasi",
+          "description": "Divisi yang menangani advokasi dan perlindungan hak mahasiswa",
+          "head": {"id": 9, "name": "Deryl Timothy Hasiholan P.", "position": "Kepala Divisi Advokasi", "nim": "2024081009"},
+          "members": [
+            {"id": 10, "name": "Jhon Calvin", "position": "Anggota Divisi Advokasi", "nim": "2023081047"},
+            {"id": 11, "name": "Clara Marcelia Farandrian", "position": "Anggota Divisi Advokasi", "nim": "2024081053"},
+            {"id": 12, "name": "Faiz Hibatullah", "position": "Anggota Divisi Advokasi", "nim": "2024081037"}
+          ]
+        },
+        {
+          "id": "Akademik",
+          "name": "Akademik",
+          "fullName": "Akademik",
+          "description": "Divisi yang menangani kegiatan akademik mahasiswa",
+          "head": {"id": 13, "name": "Nathasa Rowen Frederika A.", "position": "Kepala Divisi Akademik", "nim": "2023081056"},
+          "members": [
+            {"id": 14, "name": "Davina Intan Aurelya", "position": "Anggota Divisi Akademik", "nim": "2023081003"},
+            {"id": 15, "name": "Masagus Rakhalish Zhafran P.", "position": "Anggota Divisi Akademik", "nim": "2024081020"},
+            {"id": 16, "name": "Panji Kurnia Akbar", "position": "Anggota Divisi Akademik", "nim": "2024081024"},
+            {"id": 17, "name": "Icha Marisa Mahmuda", "position": "Anggota Divisi Akademik", "nim": "2024081054"}
+          ]
+        },
+        {
+          "id": "NonAkademik",
+          "name": "Non Akademik",
+          "fullName": "Non Akademik",
+          "description": "Divisi yang menangani kegiatan non-akademik dan pengembangan minat bakat mahasiswa",
+          "head": {"id": 18, "name": "Fajar Affandi", "position": "Kepala Divisi Non Akademik", "nim": "2023081017"},
+          "members": [
+            {"id": 19, "name": "Dhanny Ady Setiawan", "position": "Anggota Divisi Non Akademik", "nim": "2024081030"},
+            {"id": 20, "name": "Muhammad Rizaki Zaidan", "position": "Anggota Divisi Non Akademik", "nim": "2024081027"},
+            {"id": 21, "name": "Dimas Dwi Prasetyo", "position": "Anggota Divisi Non Akademik", "nim": "2024081029"},
+            {"id": 22, "name": "Theresia Lydia Puspamurti", "position": "Anggota Divisi Non Akademik", "nim": "2024081046"}
+          ]
+        },
+        {
+          "id": "Kewirausahaan",
+          "name": "Kewirausahaan",
+          "fullName": "Kewirausahaan",
+          "description": "Divisi yang menangani kewirausahaan dan pengembangan bisnis",
+          "head": {"id": 23, "name": "Alicia Stifa Nur Sahra", "position": "Kepala Divisi Kewirausahaan", "nim": "2023081015"},
+          "members": [
+            {"id": 24, "name": "Faiq Muhammad", "position": "Anggota Divisi Kewirausahaan", "nim": "2024081006"},
+            {"id": 25, "name": "Verynna Putri Zahra", "position": "Anggota Divisi Kewirausahaan", "nim": "2024081022"},
+            {"id": 26, "name": "Muhammad Rayhan Mumtaz", "position": "Anggota Divisi Kewirausahaan", "nim": "2024081040"}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Relasi",
+      "name": "Relasi",
+      "fullName": "Relasi",
+      "divisions": [
+        {
+          "id": "PDD",
+          "name": "PDD",
+          "fullName": "Publikasi, Dokumentasi, dan Desain",
+          "description": "Divisi yang menangani publikasi kegiatan, dokumentasi, dan desain grafis",
+          "head": {"id": 29, "name": "Anezza Nuraina", "position": "Kepala Divisi PDD", "nim": "2023081064"},
+          "members": [
+            {"id": 30, "name": "Bajra Bhagawanta", "position": "Anggota Divisi PDD", "nim": "2022081058"},
+            {"id": 31, "name": "Puti Ryndam Savannah", "position": "Anggota Divisi PDD", "nim": "2024081004"},
+            {"id": 32, "name": "Arae Mahesa Armera", "position": "Anggota Divisi PDD", "nim": "2024081015"},
+            {"id": 33, "name": "Rayhan Christian W.", "position": "Anggota Divisi PDD", "nim": "2024081005"}
+          ]
+        },
+        {
+          "id": "Humas",
+          "name": "Humas",
+          "fullName": "Hubungan Masyarakat",
+          "description": "Divisi yang menangani hubungan dengan pihak luar dan komunikasi publik",
+          "head": {"id": 34, "name": "Citra Dewi Cahya Nanda Z.", "position": "Kepala Divisi Humas", "nim": "2024081002"},
+          "members": [
+            {"id": 35, "name": "Syifa Alesia Salsabila", "position": "Anggota Divisi Humas", "nim": "2024081034"},
+            {"id": 36, "name": "Syahrani Nurlatiefa", "position": "Anggota Divisi Humas", "nim": "2024081031"},
+            {"id": 37, "name": "Merista Aulia", "position": "Anggota Divisi Humas", "nim": "2024081036"}
+          ]
+        },
+        {
+          "id": "RDP",
+          "name": "RDP",
+          "fullName": "Riset dan Pengembangan",
+          "description": "Divisi yang menangani riset, inovasi, dan pengembangan teknologi",
+          "head": {"id": 38, "name": "Rizky Nathaniel Lukas", "position": "Kepala Divisi Riset dan Pengembangan", "nim": "2023081023"},
+          "members": [
+            {"id": 39, "name": "Kamal Abrar Ramadhan", "position": "Anggota Divisi Riset dan Pengembangan", "nim": "2023081028"},
+            {"id": 40, "name": "Kaila Zanita", "position": "Anggota Divisi Riset dan Pengembangan", "nim": "2024081004"},
+            {"id": 41, "name": "Raden Najla Ramadhani", "position": "Anggota Divisi Riset dan Pengembangan", "nim": "2024081055"},
+            {"id": 42, "name": "Reigan Chenartha", "position": "Anggota Divisi Riset dan Pengembangan", "nim": "2023081013"}
+          ]
+        }
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "id": "seminar",
+      "name": "Seminar Teknologi",
+      "description": "Kegiatan seminar dengan mengundang praktisi industri teknologi informasi"
+    },
+    {
+      "id": "workshop",
+      "name": "Workshop Pemrograman",
+      "description": "Pelatihan keterampilan pemrograman untuk mahasiswa Sistem Informasi"
+    },
+    {
+      "id": "kunjungan",
+      "name": "Kunjungan Industri",
+      "description": "Kunjungan ke perusahaan teknologi untuk mengenal dunia kerja"
+    }
+  ],
+  "faq": {
+    "about": {
+      "question": "Apa itu HIMASIF?",
+      "answer": "HIMASIF adalah Himpunan Mahasiswa Sistem Informasi di Universitas Pembangunan Jaya yang bertujuan untuk mengembangkan potensi mahasiswa di bidang teknologi informasi."
+    },
+    "vision": {
+      "question": "Apa visi HIMASIF?",
+      "answer": "Mewujudkan HIMASIF sebagai wadah yang inovatif, inklusif, dan profesional dalam mendukung pengembangan akademik, keterampilan, serta rasa kekeluargaan seluruh anggota HIMASIF."
+    },
+    "mission": {
+      "question": "Apa misi HIMASIF?",
+      "answer": "Misi HIMASIF meliputi: 1) Menanamkan rasa cinta dan solidaritas, 2) Memfasilitasi pengembangan skill, 3) Menyediakan wadah untuk kritik dan saran, 4) Mengembangkan kolaborasi strategis."
+    },
+    "leadership": {
+      "question": "Siapa pemimpin HIMASIF?",
+      "answer": "Ketua HIMASIF saat ini adalah Mutiara Fitria Azzahra dengan NIM 2023081014, dan Wakil Ketua adalah Muhammad Rivaldo Firdaus dengan NIM 2023081045."
+    },
+    "secretary": {
+      "question": "Siapa sekretaris HIMASIF?",
+      "answer": "Sekretaris HIMASIF terdiri dari Sekretaris I: Mada Kaila Mulya (NIM: 2023081010) dan Sekretaris II: Serena Mariana Lalang Puling (NIM: 2024081021)."
+    },
+    "treasurer": {
+      "question": "Siapa bendahara HIMASIF?",
+      "answer": "Bendahara HIMASIF terdiri dari Bendahara I: Yohana Citra Simamora (NIM: 2023081012) dan Bendahara II: Andi Muhammad Nauval R. (NIM: 2023081039)."
+    },
+    "activities": {
+      "question": "Apa saja kegiatan HIMASIF?",
+      "answer": "Kegiatan HIMASIF meliputi Seminar Teknologi, Workshop Pemrograman, dan Kunjungan Industri."
+    },
+    "structure": {
+      "question": "Bagaimana struktur organisasi HIMASIF?",
+      "answer": "Struktur organisasi HIMASIF terdiri dari BPH (Badan Pengurus Harian) dan dua departemen utama: PSDM (Pengembangan Sumber Daya Mahasiswa) dan Relasi. Masing-masing departemen memiliki divisi-divisi yang menangani aspek berbeda."
+    },
+    "departments": {
+      "question": "Berapa departemen yang ada di HIMASIF?",
+      "answer": "HIMASIF memiliki dua departemen utama: PSDM (Pengembangan Sumber Daya Mahasiswa) dan Relasi."
+    },
+    "divisions": {
+      "question": "Berapa divisi yang ada di HIMASIF?",
+      "answer": "HIMASIF memiliki total 7 divisi: 4 divisi di bawah Departemen PSDM (Advokasi, Akademik, Non Akademik, dan Kewirausahaan) dan 3 divisi di bawah Departemen Relasi (PDD, Humas, dan RDP)."
+    },
+    "psdm": {
+      "question": "Apa itu PSDM?",
+      "answer": "PSDM (Pengembangan Sumber Daya Mahasiswa) adalah departemen di HIMASIF yang dipimpin oleh Muhammad Rifadh Athallah (Ketua) dan Ezra Jelianti Silaban (Wakil Ketua). Departemen ini memiliki divisi Advokasi, Akademik, Non Akademik, dan Kewirausahaan."
+    },
+    "relasi": {
+      "question": "Apa itu Departemen Relasi?",
+      "answer": "Departemen Relasi dipimpin oleh Raira Salsabila (Ketua) dan Bianca Sabina Yunas (Wakil Ketua). Departemen ini memiliki divisi PDD (Publikasi, Dokumentasi, dan Desain), Humas, dan RDP (Riset dan Pengembangan)."
+    }
+  },
+  "abbreviations": {
+    "pdd": "Publikasi, Dokumentasi, dan Desain",
+    "rdp": "Riset dan Pengembangan",
+    "psdm": "Pengembangan Sumber Daya Mahasiswa",
+    "bph": "Badan Pengurus Harian",
+    "humas": "Hubungan Masyarakat"
+  },
+  "defaultResponse": "Maaf, saya tidak mengerti pertanyaan Anda. Silakan tanyakan tentang HIMASIF, struktur organisasi, visi misi, kegiatan, departemen, atau anggota pengurus spesifik."
+}
