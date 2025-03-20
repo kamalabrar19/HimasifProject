@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, render_template
 import requests
 import os
 import json
@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 
 # OpenRouter configuration
-OPENROUTER_API_KEY = "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"
+OPENROUTER_API_KEY = "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"
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 MODEL_NAME = "qwen/qwq-32b:free"
 SITE_URL = "https://www.sitename.com"
@@ -91,7 +91,7 @@ def load_himasif_data():
     
     return default_data
 
-# Load data saat aplikasi dimulai
+# TAMBAHKAN BARIS INI: Load data saat aplikasi dimulai
 himasif_data = load_himasif_data()
 
 # Function to format response text with Markdown to HTML conversion
@@ -155,6 +155,11 @@ Anda adalah asisten virtual HIMASIF (Himpunan Mahasiswa Sistem Informasi) dari U
   - "Kegiatan" berarti aktivitas atau program HIMASIF.
   - "Media sosial" atau "sosial media" berarti informasi tentang akun Instagram dan YouTube HIMASIF.
   - "Tagline" atau "hashtag" berarti informasi tentang slogan dan hashtag resmi HIMASIF.
+  - "Tupoksi" atau "tugas pokok dan fungsi" berarti deskripsi tanggung jawab dari departemen atau divisi.
+  - "Dosen" atau "Lecturer" berarti informasi tentang dosen-dosen program studi Sistem Informasi.
+  - "Kaprodi" atau "Ketua Program Studi" berarti kepala program studi Sistem Informasi.
+  - "Rektor" berarti pimpinan tertinggi universitas.
+  - "Pembina" merujuk pada dosen yang berperan sebagai pembimbing atau pembina organisasi mahasiswa.
 - Jika pertanyaan ambigu, pilih jawaban yang paling relevan berdasarkan konteks umum.
 - Jika data tidak tersedia, jawab: "Maaf, informasi tidak tersedia."
 - Jawab dalam Bahasa Indonesia yang sopan dan jelas.
@@ -164,6 +169,12 @@ Anda adalah asisten virtual HIMASIF (Himpunan Mahasiswa Sistem Informasi) dari U
 - JANGAN tulis URL mentah tanpa format Markdown. JANGAN tulis nama platform tanpa tautan Markdown. JANGAN gabungkan teks dan tag HTML secara acak.
 - Tambahkan kalimat ajakan seperti "Silakan kunjungi akun resmi HIMASIF untuk informasi terkini!" saat menjawab tentang media sosial.
 - Hindari mencampur informasi yang tidak relevan (misalnya, visi dengan divisi).
+
+**Panduan untuk Pertanyaan tentang Dosen:**
+- Ketika ditanya "Siapa dosen Sistem Informasi UPJ?" atau pertanyaan serupa, berikan daftar lengkap dosen dari data.
+- Ketika ditanya "Siapa Ketua/Kepala Program Studi?" atau "Siapa Kaprodi?", jawab dengan informasi dari data lecturer yang memiliki posisi "Head of the Department of Information Systems".
+- Ketika ditanya "Siapa Rektor?", jawab dengan informasi dari data lecturer yang memiliki posisi "Rector".
+- Ketika ditanya tentang dosen tertentu, berikan informasi lengkap tentang dosen tersebut termasuk posisi/jabatannya.
 
 **Contoh:**
 - Pertanyaan: "Apa visi HIMASIF?"
@@ -180,6 +191,16 @@ Anda adalah asisten virtual HIMASIF (Himpunan Mahasiswa Sistem Informasi) dari U
   Jawaban: **Tagline HIMASIF:** We Make IT Happen
 - Pertanyaan: "Apa hashtag HIMASIF?"
   Jawaban: **Hashtag HIMASIF:** #sisteminformasi #sifupj #himasif360upj #WeMakeITHappen
+- Pertanyaan: "Siapa dosen di Sistem Informasi UPJ?"
+  Jawaban: ### Dosen Program Studi Sistem Informasi UPJ  
+  1. **Ir. Yudi Samyudia, Ph.D.** - Rektor UPJ
+  2. **Chaerul Anwar, S.Kom, M.T.I** - Kepala Program Studi Sistem Informasi
+  3. **Denny Ganjar Purnama, S.Si., MTI** - Kepala Biro Teknologi Informasi dan Komunikasi
+  [dan seterusnya]
+- Pertanyaan: "Siapa Kaprodi Sistem Informasi?"
+  Jawaban: **Kepala Program Studi Sistem Informasi UPJ** adalah **Chaerul Anwar, S.Kom, M.T.I**
+- Pertanyaan: "Siapa Rektor UPJ?"
+  Jawaban: **Rektor Universitas Pembangunan Jaya** adalah **Ir. Yudi Samyudia, Ph.D.**
 """
     return system_prompt
 
@@ -249,12 +270,38 @@ def chat():
         logger.error(f"Unexpected error: {str(e)}")
         return jsonify({"error": f"Kesalahan server: {str(e)}"}), 500
 
-# Serve frontend files - DIUBAH untuk menggunakan Flask templates
+# Serve frontend files - UPDATED for Flask standard structure
 @app.route("/")
 def index():
-    return render_template('index.html')
+    try:
+        return render_template('index.html')
+    except Exception as e:
+        logger.error(f"Error rendering template: {str(e)}")
+        # Fallback to old method if template not found
+        frontend_path = os.path.join(os.path.dirname(__file__), "..", "frontend")
+        index_path = os.path.join(frontend_path, "index.html")
+        if os.path.exists(index_path):
+            return send_from_directory(frontend_path, "index.html")
+        else:
+            return "Frontend not found. Please check your folder structure.", 404
 
-# Untuk host di Render
+# For static files
+@app.route("/<path:filename>")
+def serve_static(filename):
+    # First try the standard Flask static folder
+    static_path = os.path.join(os.path.dirname(__file__), "static", filename)
+    if os.path.exists(static_path):
+        return send_from_directory("static", filename)
+    
+    # Fallback to old path if file not found in standard location
+    frontend_path = os.path.join(os.path.dirname(__file__), "..", "frontend")
+    file_path = os.path.join(frontend_path, filename)
+    if os.path.exists(file_path):
+        return send_from_directory(frontend_path, filename)
+    else:
+        logger.error(f"Static file not found: {filename}")
+        return f"File {filename} not found", 404
+
 if __name__ == "__main__":
     logger.info("=== HIMASIF Assistant Server Starting ===")
     if himasif_data:
@@ -275,12 +322,14 @@ if __name__ == "__main__":
     except Exception as e:
         logger.warning(f"⚠️ Could not connect to OpenRouter API: {str(e)}")
     
-    # Gunakan port dari environment variable (untuk Render)
+    # Gunakan port dari environment variable atau 5000 sebagai default
     port = int(os.environ.get('PORT', 5000))
-    host = os.environ.get('HOST', '0.0.0.0')
+    # Gunakan 0.0.0.0 untuk development, tetapi bisa diubah menjadi 127.0.0.1 untuk lokal saja
+    host = os.environ.get('HOST', '127.0.0.1')
+    
     logger.info(f"Starting server on http://{host}:{port}")
     try:
-        app.run(debug=False, host=host, port=port)
+        app.run(debug=True, host=host, port=port)
     except KeyboardInterrupt:
         logger.info("Server stopped by user")
     except Exception as e:

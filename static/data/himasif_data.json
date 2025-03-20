@@ -16,17 +16,76 @@
       "#sifupj",
       "#himasif360upj",
       "#WeMakeITHappen"
-    ]
-  },
-  "leadership": {
-    "bph": [
-      {"id": 1, "name": "Mutiara Fitria Azzahra", "position": "Ketua HIMASIF", "nim": "2023081014"},
-      {"id": 2, "name": "Muhammad Rivaldo Firdaus", "position": "Wakil Ketua HIMASIF", "nim": "2023081045"},
-      {"id": 3, "name": "Mada Kaila Mulya", "position": "Sekretaris I", "nim": "2023081010"},
-      {"id": 4, "name": "Serena Mariana Lalang Puling", "position": "Sekretaris II", "nim": "2024081021"},
-      {"id": 5, "name": "Yohana Citra Simamora", "position": "Bendahara I", "nim": "2023081012"},
-      {"id": 6, "name": "Andi Muhammad Nauval R.", "position": "Bendahara II", "nim": "2023081039"}
     ],
+    "social_media": {
+      "instagram": "https://www.instagram.com/himasif360upj/",
+      "youtube": "https://www.youtube.com/@sisteminformasiupj8380"
+    }
+  },
+  "lecturers": [
+    {
+      "id": 1,
+      "name": "Ir. Yudi Samyudia, Ph.D.",
+      "position": "Rector / Lecturer"
+    },
+    {
+      "id": 2,
+      "name": "Yunus Widjaja, S.Kom, MM",
+      "position": "Head of the Education Bureau / Lecturer"
+    },
+    {
+      "id": 3,
+      "name": "Denny Ganjar Purnama, S.Si., MTI",
+      "position": "Head of the Information and Communication Technology Bureau / Lecturer"
+    },
+    {
+      "id": 4,
+      "name": "Johannes Hamonangan Siregar., Drs, M.Ed, Ph.D.",
+      "position": "Scientific and Curriculum Coordinator / Lecturer"
+    },
+    {
+      "id": 5,
+      "name": "Marcello Singadji, S.Kom., MT.",
+      "position": "Student and Alumni Affairs Coordinator / Lecturer"
+    },
+    {
+      "id": 6,
+      "name": "Dr. Rufman Iman Akbar., MM., MKom., IPU., Asean ENG",
+      "position": "Lecturer"
+    },
+    {
+      "id": 7,
+      "name": "Chaerul Anwar, S.Kom, M.T.I",
+      "position": "Head of the Department of Information Systems / Lecturer"
+    },
+    {
+      "id": 8,
+      "name": "Augury El Rayeb, S.Kom., MMSI.",
+      "position": "Lecturer"
+    },
+    {
+      "id": 9,
+      "name": "Dr. Safrizal",
+      "position": "Information Systems Research Laboratory Coordinator / Lecturer"
+    },
+    {
+      "id": 10,
+      "name": "Dr. Cahyono Budy Santoso, ST, MMSI",
+      "position": "Lecturer"
+    }
+  ],
+  "leadership": {
+    "bph": {
+      "description": "Badan Pengurus Harian adalah badan yang bertugas untuk mengusung, membentuk, dan mengevaluasi terkait aktivitas atau program kerja yang ada pada Himpunan Mahasiswa Sistem Informasi (HIMASIF).",
+      "members": [
+        {"id": 1, "name": "Mutiara Fitria Azzahra", "position": "Ketua HIMASIF", "nim": "2023081014"},
+        {"id": 2, "name": "Muhammad Rivaldo Firdaus", "position": "Wakil Ketua HIMASIF", "nim": "2023081045"},
+        {"id": 3, "name": "Mada Kaila Mulya", "position": "Sekretaris I", "nim": "2023081010"},
+        {"id": 4, "name": "Serena Mariana Lalang Puling", "position": "Sekretaris II", "nim": "2024081021"},
+        {"id": 5, "name": "Yohana Citra Simamora", "position": "Bendahara I", "nim": "2023081012"},
+        {"id": 6, "name": "Andi Muhammad Nauval R.", "position": "Bendahara II", "nim": "2023081039"}
+      ]
+    },
     "department_heads": {
       "PSDM": {
         "head": {"id": 7, "name": "Muhammad Rifadh Athallah", "position": "Ketua Departemen PSDM", "nim": "2023081020"},
@@ -43,12 +102,13 @@
       "id": "PSDM",
       "name": "PSDM",
       "fullName": "Pengembangan Sumber Daya Mahasiswa",
+      "description": "Departemen Pengembangan Sumber Daya Manusia (PSDM) adalah divisi yang bertanggung jawab dalam mengembangkan potensi dan keterampilan mahasiswa Sistem Informasi melalui berbagai program pelatihan, peningkatan kapasitas, serta pengembangan soft skill dan hard skill guna menciptakan sumber daya manusia yang kompeten dan siap bersaing.",
       "divisions": [
         {
           "id": "Advokasi",
           "name": "Advokasi",
           "fullName": "Advokasi",
-          "description": "Divisi yang menangani advokasi dan perlindungan hak mahasiswa",
+          "description": "Divisi Advokasi adalah divisi yang bertanggung jawab untuk menghimpun dan menampung aspirasi setiap anggota Himpunan Mahasiswa Sistem Informasi (HIMASIF) dalam mencapai kesejahteraan mahasiswa.",
           "head": {"id": 9, "name": "Deryl Timothy Hasiholan P.", "position": "Kepala Divisi Advokasi", "nim": "2024081009"},
           "members": [
             {"id": 10, "name": "Jhon Calvin", "position": "Anggota Divisi Advokasi", "nim": "2023081047"},
@@ -60,7 +120,7 @@
           "id": "Akademik",
           "name": "Akademik",
           "fullName": "Akademik",
-          "description": "Divisi yang menangani kegiatan akademik mahasiswa",
+          "description": "Divisi Akademik merupakan divisi yang bertanggung jawab dalam meningkatkan kualitas akademik mahasiswa Himpunan Mahasiswa Sistem Informasi (HIMASIF) melalui berbagai program pengembangan keilmuan. Divisi ini berperan dalam memfasilitasi peningkatan kompetensi akademik, seperti penyelenggaraan seminar, workshop, pelatihan, serta kegiatan pendukung lainnya.",
           "head": {"id": 13, "name": "Nathasa Rowen Frederika A.", "position": "Kepala Divisi Akademik", "nim": "2023081056"},
           "members": [
             {"id": 14, "name": "Davina Intan Aurelya", "position": "Anggota Divisi Akademik", "nim": "2023081003"},
@@ -73,7 +133,7 @@
           "id": "NonAkademik",
           "name": "Non Akademik",
           "fullName": "Non Akademik",
-          "description": "Divisi yang menangani kegiatan non-akademik dan pengembangan minat bakat mahasiswa",
+          "description": "Divisi Non-Akademik merupakan divisi yang bertanggung jawab dalam mengembangkan minat, bakat, serta memperkuat solidaritas antar anggota Himpunan Mahasiswa Sistem Informasi (HIMASIF) melalui berbagai kegiatan di luar ranah akademik. Divisi ini berperan dalam menciptakan lingkungan yang inklusif, inovatif, dan mendukung pengembangan soft skill mahasiswa guna meningkatkan kualitas serta kesejahteraan anggota Himpunan Mahasiswa Sistem Informasi (HIMASIF).",
           "head": {"id": 18, "name": "Fajar Affandi", "position": "Kepala Divisi Non Akademik", "nim": "2023081017"},
           "members": [
             {"id": 19, "name": "Dhanny Ady Setiawan", "position": "Anggota Divisi Non Akademik", "nim": "2024081030"},
@@ -86,7 +146,7 @@
           "id": "Kewirausahaan",
           "name": "Kewirausahaan",
           "fullName": "Kewirausahaan",
-          "description": "Divisi yang menangani kewirausahaan dan pengembangan bisnis",
+          "description": "Divisi Kewirausahaan adalah divisi yang bertanggung jawab untuk melakukan pengembangan dan pengelolaan terkait kewirausahaan dalam Himpunan Mahasiswa Sistem Informasi (HIMASIF).",
           "head": {"id": 23, "name": "Alicia Stifa Nur Sahra", "position": "Kepala Divisi Kewirausahaan", "nim": "2023081015"},
           "members": [
             {"id": 24, "name": "Faiq Muhammad", "position": "Anggota Divisi Kewirausahaan", "nim": "2024081006"},
@@ -100,12 +160,13 @@
       "id": "Relasi",
       "name": "Relasi",
       "fullName": "Relasi",
+      "description": "Departemen Relasi adalah divisi yang bertanggung jawab dalam menjalin serta memperkuat hubungan antara Himpunan Mahasiswa Sistem Informasi (HIMASIF) dengan berbagai pihak, baik internal maupun eksternal, guna membangun kerja sama yang bermanfaat bagi mahasiswa Sistem Informasi.",
       "divisions": [
         {
           "id": "PDD",
           "name": "PDD",
           "fullName": "Publikasi, Dokumentasi, dan Desain",
-          "description": "Divisi yang menangani publikasi kegiatan, dokumentasi, dan desain grafis",
+          "description": "Divisi Publikasi, Dokumentasi, dan Desain (PDD) adalah divisi yang bertanggung jawab dalam mengelola publikasi informasi, mendokumentasikan kegiatan, serta merancang media visual untuk mendukung citra dan komunikasi Himpunan Mahasiswa Sistem Informasi (HIMASIF). Divisi ini berperan dalam memastikan setiap informasi dan dokumentasi tersampaikan dengan jelas, menarik, serta sesuai dengan identitas Himpunan Mahasiswa Sistem Informasi (HIMASIF).",
           "head": {"id": 29, "name": "Anezza Nuraina", "position": "Kepala Divisi PDD", "nim": "2023081064"},
           "members": [
             {"id": 30, "name": "Bajra Bhagawanta", "position": "Anggota Divisi PDD", "nim": "2022081058"},
@@ -118,7 +179,7 @@
           "id": "Humas",
           "name": "Humas",
           "fullName": "Hubungan Masyarakat",
-          "description": "Divisi yang menangani hubungan dengan pihak luar dan komunikasi publik",
+          "description": "Divisi Hubungan Masyarakat (Humas) adalah divisi yang bertanggung jawab dalam membangun serta menjaga citra Himpunan Mahasiswa Sistem Informasi (HIMASIF) melalui komunikasi yang efektif dengan berbagai pihak, baik internal maupun eksternal. Divisi ini berperan dalam menyebarkan informasi, menjalin kerja sama strategis, serta memastikan keterbukaan dan transparansi Himpunan Mahasiswa Sistem Informasi (HIMASIF) dalam berbagai kegiatan dan program yang dijalankan.",
           "head": {"id": 34, "name": "Citra Dewi Cahya Nanda Z.", "position": "Kepala Divisi Humas", "nim": "2024081002"},
           "members": [
             {"id": 35, "name": "Syifa Alesia Salsabila", "position": "Anggota Divisi Humas", "nim": "2024081034"},
@@ -130,7 +191,7 @@
           "id": "RDP",
           "name": "RDP",
           "fullName": "Riset dan Pengembangan",
-          "description": "Divisi yang menangani riset, inovasi, dan pengembangan teknologi",
+          "description": "Divisi Riset dan Pengembangan adalah divisi yang bertanggung jawab untuk merancang dan membuat website HIMASIF, mengembangkan inovasi serta meningkatkan kemampuan akademik dan teknis mahasiswa Sistem Informasi. Divisi ini menjadi wadah eksplorasi, penelitian, dan pengembangan teknologi guna mendukung kemajuan Himpunan Mahasiswa Sistem Informasi (HIMASIF) dan anggotanya.",
           "head": {"id": 38, "name": "Rizky Nathaniel Lukas", "position": "Kepala Divisi Riset dan Pengembangan", "nim": "2023081023"},
           "members": [
             {"id": 39, "name": "Kamal Abrar Ramadhan", "position": "Anggota Divisi Riset dan Pengembangan", "nim": "2023081028"},
@@ -207,6 +268,50 @@
     "relasi": {
       "question": "Apa itu Departemen Relasi?",
       "answer": "Departemen Relasi dipimpin oleh Raira Salsabila (Ketua) dan Bianca Sabina Yunas (Wakil Ketua). Departemen ini memiliki divisi PDD (Publikasi, Dokumentasi, dan Desain), Humas, dan RDP (Riset dan Pengembangan)."
+    },
+    "bph": {
+      "question": "Apa itu BPH?",
+      "answer": "Badan Pengurus Harian (BPH) adalah badan yang bertugas untuk mengusung, membentuk, dan mengevaluasi terkait aktivitas atau program kerja yang ada pada Himpunan Mahasiswa Sistem Informasi (HIMASIF)."
+    },
+    "advokasi": {
+      "question": "Apa tugas Divisi Advokasi?",
+      "answer": "Divisi Advokasi adalah divisi yang bertanggung jawab untuk menghimpun dan menampung aspirasi setiap anggota Himpunan Mahasiswa Sistem Informasi (HIMASIF) dalam mencapai kesejahteraan mahasiswa."
+    },
+    "akademik": {
+      "question": "Apa tugas Divisi Akademik?",
+      "answer": "Divisi Akademik merupakan divisi yang bertanggung jawab dalam meningkatkan kualitas akademik mahasiswa Himpunan Mahasiswa Sistem Informasi (HIMASIF) melalui berbagai program pengembangan keilmuan, seperti penyelenggaraan seminar, workshop, pelatihan, serta kegiatan pendukung lainnya."
+    },
+    "nonakademik": {
+      "question": "Apa tugas Divisi Non Akademik?",
+      "answer": "Divisi Non-Akademik merupakan divisi yang bertanggung jawab dalam mengembangkan minat, bakat, serta memperkuat solidaritas antar anggota HIMASIF melalui berbagai kegiatan di luar ranah akademik, menciptakan lingkungan yang inklusif, inovatif, dan mendukung pengembangan soft skill mahasiswa."
+    },
+    "kewirausahaan": {
+      "question": "Apa tugas Divisi Kewirausahaan?",
+      "answer": "Divisi Kewirausahaan adalah divisi yang bertanggung jawab untuk melakukan pengembangan dan pengelolaan terkait kewirausahaan dalam Himpunan Mahasiswa Sistem Informasi (HIMASIF)."
+    },
+    "pdd": {
+      "question": "Apa tugas Divisi PDD?",
+      "answer": "Divisi Publikasi, Dokumentasi, dan Desain (PDD) adalah divisi yang bertanggung jawab dalam mengelola publikasi informasi, mendokumentasikan kegiatan, serta merancang media visual untuk mendukung citra dan komunikasi HIMASIF."
+    },
+    "humas": {
+      "question": "Apa tugas Divisi Humas?",
+      "answer": "Divisi Hubungan Masyarakat (Humas) adalah divisi yang bertanggung jawab dalam membangun serta menjaga citra HIMASIF melalui komunikasi yang efektif, menyebarkan informasi, menjalin kerja sama strategis, serta memastikan keterbukaan dan transparansi dalam berbagai kegiatan."
+    },
+    "rdp": {
+      "question": "Apa tugas Divisi RDP?",
+      "answer": "Divisi Riset dan Pengembangan adalah divisi yang bertanggung jawab untuk merancang dan membuat website HIMASIF, mengembangkan inovasi serta meningkatkan kemampuan akademik dan teknis mahasiswa Sistem Informasi."
+    },
+    "lecturers": {
+      "question": "Siapa saja dosen Sistem Informasi?",
+      "answer": "Dosen Program Studi Sistem Informasi meliputi: Ir. Yudi Samyudia, Ph.D. (Rektor), Chaerul Anwar, S.Kom, M.T.I (Kepala Program Studi), Denny Ganjar Purnama, S.Si., MTI, Johannes Hamonangan Siregar, Marcello Singadji, Dr. Rufman Iman Akbar, Augury El Rayeb, Dr. Safrizal, Dr. Cahyono Budy Santoso, dan Yunus Widjaja."
+    },
+    "kaprodi": {
+      "question": "Siapa ketua program studi Sistem Informasi?",
+      "answer": "Ketua Program Studi Sistem Informasi adalah Chaerul Anwar, S.Kom, M.T.I."
+    },
+    "pembina": {
+      "question": "Siapa pembina HIMASIF?",
+      "answer": "Pembina HIMASIF adalah Marcello Singadji, S.Kom., MT."
     }
   },
   "abbreviations": {
