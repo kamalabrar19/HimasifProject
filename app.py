@@ -16,9 +16,9 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 
 # OpenRouter configuration
-OPENROUTER_API_KEY = "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"
+OPENROUTER_API_KEY = "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"
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
-MODEL_NAME = "qwen/qwq-32b:free"
+MODEL_NAME = "deepseek/deepseek-r1:free"
 SITE_URL = "https://www.sitename.com"
 SITE_NAME = "SiteName"
 TIMEOUT = 30
