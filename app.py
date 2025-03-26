@@ -5,25 +5,30 @@ import json
 import logging
 from openai import OpenAI
 import re
+from dotenv import load_dotenv  # Import dotenv untuk memuat .env
 
-# Configure logging
+# Konfigurasi logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
 
+# Memuat variabel lingkungan dari file .env
+load_dotenv()
+
+# Define the Flask app
 app = Flask(__name__)
 
-# OpenRouter configuration
-OPENROUTER_API_KEY = "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"
+# Mengambil API Key dari variabel lingkungan
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
-MODEL_NAME = "deepseek/deepseek-r1:free"
+MODEL_NAME = "deepseek/deepseek-r1-distill-llama-70b:free"
 SITE_URL = "https://www.sitename.com"
 SITE_NAME = "SiteName"
 TIMEOUT = 30
 
-# Initialize OpenAI client for OpenRouter
+# Inisialisasi OpenAI client untuk OpenRouter
 client = OpenAI(
     base_url=OPENROUTER_BASE_URL,
     api_key=OPENROUTER_API_KEY,
@@ -144,68 +149,6 @@ Anda juga bisa menjawab pertanyaan pertanyaan diluar dari data HIMASIF.
 Gunakan data berikut untuk menjawab pertanyaan secara akurat dan alami:
 
 {himasif_data_str}
-
-**Panduan Kerja:**
-- Jawab pertanyaan dengan jelas dan informatif.
-- Bisa menjawab pertanyaan umum serta dapat membuat sesuatu berdasarkan penulisan yang baik dan benar.
-- Bisa memprediksi akan hal yang akan terjadi berdasarkan konteks yang ada.
-- Pahami makna pertanyaan secara keseluruhan, bukan hanya kata kunci terpisah.
-- Bedakan konteks dengan cerdas:
-  - "Visi" berarti tujuan jangka panjang organisasi.
-  - "Misi" berarti langkah-langkah untuk mencapai visi.
-  - "Divisi" berarti unit kerja dalam departemen.
-  - "Departemen" berarti kelompok besar yang menaungi divisi.
-  - "Anggota" berarti daftar orang dalam organisasi atau divisi tertentu.
-  - "BPH" berarti Badan Pengurus Harian.
-  - "Kegiatan" berarti aktivitas atau program HIMASIF.
-  - "Media sosial" atau "sosial media" berarti informasi tentang akun Instagram dan YouTube HIMASIF.
-  - "Tagline" atau "hashtag" berarti informasi tentang slogan dan hashtag resmi HIMASIF.
-  - "Tupoksi" atau "tugas pokok dan fungsi" berarti deskripsi tanggung jawab dari departemen atau divisi.
-  - "Dosen" atau "Lecturer" berarti informasi tentang dosen-dosen program studi Sistem Informasi.
-  - "Kaprodi" atau "Ketua Program Studi" berarti kepala program studi Sistem Informasi.
-  - "Rektor" berarti pimpinan tertinggi universitas.
-  - "Pembina" merujuk pada dosen yang berperan sebagai pembimbing atau pembina organisasi mahasiswa.
-- Jika pertanyaan ambigu, pilih jawaban yang paling relevan berdasarkan konteks umum.
-- Jika data tidak tersedia, jawab: "Maaf, informasi tidak tersedia."
-- Jawab dalam Bahasa Indonesia yang sopan dan jelas.
-- Gunakan format bold (**text**) untuk informasi penting.
-- Gunakan heading Markdown (### untuk judul besar, #### untuk subjudul) jika perlu untuk struktur yang lebih jelas.
-- Untuk media sosial, WAJIB gunakan format Markdown [teks](URL) untuk setiap tautan, misalnya [Instagram](https://www.instagram.com/himasif360upj/). 
-- JANGAN tulis URL mentah tanpa format Markdown. JANGAN tulis nama platform tanpa tautan Markdown. JANGAN gabungkan teks dan tag HTML secara acak.
-- Tambahkan kalimat ajakan seperti "Silakan kunjungi akun resmi HIMASIF untuk informasi terkini!" saat menjawab tentang media sosial.
-- Hindari mencampur informasi yang tidak relevan (misalnya, visi dengan divisi).
-
-**Panduan untuk Pertanyaan tentang Dosen:**
-- Ketika ditanya "Siapa dosen Sistem Informasi UPJ?" atau pertanyaan serupa, berikan daftar lengkap dosen dari data.
-- Ketika ditanya "Siapa Ketua/Kepala Program Studi?" atau "Siapa Kaprodi?", jawab dengan informasi dari data lecturer yang memiliki posisi "Head of the Department of Information Systems".
-- Ketika ditanya "Siapa Rektor?", jawab dengan informasi dari data lecturer yang memiliki posisi "Rector".
-- Ketika ditanya tentang dosen tertentu, berikan informasi lengkap tentang dosen tersebut termasuk posisi/jabatannya.
-
-**Contoh:**
-- Pertanyaan: "Apa visi HIMASIF?"
-  Jawaban: **VISI HIMASIF:** [visi dari data]
-- Pertanyaan: "Divisi apa saja di HIMASIF?"
-  Jawaban: ### Daftar Divisi HIMASIF  
-  [daftar divisi dari data]
-- Pertanyaan: "Apa media sosial HIMASIF?"
-  Jawaban: ### Media Sosial HIMASIF  
-  - [Instagram](https://www.instagram.com/himasif360upj/)  
-  - [YouTube](https://www.youtube.com/@sisteminformasiupj8380)  
-  Silakan kunjungi akun resmi HIMASIF untuk informasi terkini!
-- Pertanyaan: "Apa tagline HIMASIF?"
-  Jawaban: **Tagline HIMASIF:** We Make IT Happen
-- Pertanyaan: "Apa hashtag HIMASIF?"
-  Jawaban: **Hashtag HIMASIF:** #sisteminformasi #sifupj #himasif360upj #WeMakeITHappen
-- Pertanyaan: "Siapa dosen di Sistem Informasi UPJ?"
-  Jawaban: ### Dosen Program Studi Sistem Informasi UPJ  
-  1. **Ir. Yudi Samyudia, Ph.D.** - Rektor UPJ
-  2. **Chaerul Anwar, S.Kom, M.T.I** - Kepala Program Studi Sistem Informasi
-  3. **Denny Ganjar Purnama, S.Si., MTI** - Kepala Biro Teknologi Informasi dan Komunikasi
-  [dan seterusnya]
-- Pertanyaan: "Siapa Kaprodi Sistem Informasi?"
-  Jawaban: **Kepala Program Studi Sistem Informasi UPJ** adalah **Chaerul Anwar, S.Kom, M.T.I**
-- Pertanyaan: "Siapa Rektor UPJ?"
-  Jawaban: **Rektor Universitas Pembangunan Jaya** adalah **Ir. Yudi Samyudia, Ph.D.**
 """
     return system_prompt
 
@@ -275,14 +218,13 @@ def chat():
         logger.error(f"Unexpected error: {str(e)}")
         return jsonify({"error": f"Kesalahan server: {str(e)}"}), 500
 
-# Serve frontend files - UPDATED for Flask standard structure
+# Serve frontend files
 @app.route("/")
 def index():
     try:
         return render_template('index.html')
     except Exception as e:
         logger.error(f"Error rendering template: {str(e)}")
-        # Fallback to old method if template not found
         frontend_path = os.path.join(os.path.dirname(__file__), "..", "frontend")
         index_path = os.path.join(frontend_path, "index.html")
         if os.path.exists(index_path):
@@ -293,12 +235,9 @@ def index():
 # For static files
 @app.route("/<path:filename>")
 def serve_static(filename):
-    # First try the standard Flask static folder
     static_path = os.path.join(os.path.dirname(__file__), "static", filename)
     if os.path.exists(static_path):
         return send_from_directory("static", filename)
-    
-    # Fallback to old path if file not found in standard location
     frontend_path = os.path.join(os.path.dirname(__file__), "..", "frontend")
     file_path = os.path.join(frontend_path, filename)
     if os.path.exists(file_path):
@@ -327,11 +266,8 @@ if __name__ == "__main__":
     except Exception as e:
         logger.warning(f"⚠️ Could not connect to OpenRouter API: {str(e)}")
     
-    # Gunakan port dari environment variable atau 5000 sebagai default
     port = int(os.environ.get('PORT', 5000))
-    # Gunakan 0.0.0.0 untuk development, tetapi bisa diubah menjadi 127.0.0.1 untuk lokal saja
     host = os.environ.get('HOST', '127.0.0.1')
-    
     logger.info(f"Starting server on http://{host}:{port}")
     try:
         app.run(debug=True, host=host, port=port)
