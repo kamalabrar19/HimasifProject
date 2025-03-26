@@ -4,7 +4,6 @@ import os
 import json
 import logging
 import re
-from dotenv import load_dotenv  # Import dotenv untuk memuat .env
 
 # Konfigurasi logging
 logging.basicConfig(
@@ -12,9 +11,6 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
-
-# Memuat variabel lingkungan dari file .env
-load_dotenv()
 
 # Define the Flask app
 app = Flask(__name__)
