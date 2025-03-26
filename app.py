@@ -3,7 +3,6 @@ import requests
 import os
 import json
 import logging
-from openai import OpenAI
 import re
 from dotenv import load_dotenv  # Import dotenv untuk memuat .env
 
@@ -27,12 +26,6 @@ MODEL_NAME = "deepseek/deepseek-r1-distill-llama-70b:free"
 SITE_URL = "https://www.sitename.com"
 SITE_NAME = "SiteName"
 TIMEOUT = 30
-
-# Inisialisasi OpenAI client untuk OpenRouter
-client = OpenAI(
-    base_url=OPENROUTER_BASE_URL,
-    api_key=OPENROUTER_API_KEY,
-)
 
 # Load HIMASIF data from JSON file
 def load_himasif_data():
@@ -173,7 +166,7 @@ def health_check():
         "himasif_data": "loaded" if himasif_data else "not loaded"
     })
 
-# Chat endpoint
+# Chat endpoint - Using requests library directly instead of OpenAI
 @app.route("/chat", methods=["POST"])
 def chat():
     try:
@@ -187,29 +180,50 @@ def chat():
         # Get system prompt with data
         system_prompt = get_system_prompt()
         
-        # Use OpenRouter to generate response
+        # Set up headers for OpenRouter API
+        headers = {
+            "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+            "HTTP-Referer": SITE_URL,
+            "X-Title": SITE_NAME,
+            "Content-Type": "application/json"
+        }
+        
+        # Prepare the payload for the API request
+        payload = {
+            "model": MODEL_NAME,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ]
+        }
+        
+        # Make the API request to OpenRouter
         try:
             logger.info(f"Connecting to OpenRouter API with model {MODEL_NAME}")
-            completion = client.chat.completions.create(
-                extra_headers={
-                    "HTTP-Referer": SITE_URL,
-                    "X-Title": SITE_NAME,
-                },
-                model=MODEL_NAME,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
-                ],
+            response = requests.post(
+                f"{OPENROUTER_BASE_URL}/chat/completions",
+                headers=headers,
+                json=payload,
                 timeout=TIMEOUT
             )
             
-            ai_response = completion.choices[0].message.content
-            formatted_response = format_response(ai_response)
-            logger.info(f"AI response (formatted): {formatted_response[:100]}...")
-            return jsonify({"response": formatted_response})
+            if response.status_code == 200:
+                result = response.json()
+                ai_response = result['choices'][0]['message']['content']
+                formatted_response = format_response(ai_response)
+                logger.info(f"AI response (formatted): {formatted_response[:100]}...")
+                return jsonify({"response": formatted_response})
+            else:
+                logger.error(f"OpenRouter API error: {response.status_code}, {response.text}")
+                fallback = himasif_data.get("defaultResponse", "Maaf, saya tidak bisa memberikan jawaban saat ini.")
+                formatted_fallback = format_response(fallback)
+                return jsonify({"response": formatted_fallback})
             
-        except Exception as e:
-            logger.error(f"OpenRouter API error: {str(e)}")
+        except requests.exceptions.Timeout:
+            logger.error(f"OpenRouter API timeout after {TIMEOUT} seconds")
+            return jsonify({"response": "Maaf, permintaan timeout. Silakan coba lagi nanti."})
+        except requests.exceptions.RequestException as e:
+            logger.error(f"OpenRouter API request error: {str(e)}")
             fallback = himasif_data.get("defaultResponse", "Maaf, saya tidak bisa memberikan jawaban saat ini.")
             formatted_fallback = format_response(fallback)
             return jsonify({"response": formatted_fallback})
@@ -267,10 +281,10 @@ if __name__ == "__main__":
         logger.warning(f"⚠️ Could not connect to OpenRouter API: {str(e)}")
     
     port = int(os.environ.get('PORT', 5000))
-    host = os.environ.get('HOST', '127.0.0.1')
+    host = os.environ.get('HOST', '0.0.0.0')  # Changed from 127.0.0.1 to 0.0.0.0 for deployment
     logger.info(f"Starting server on http://{host}:{port}")
     try:
-        app.run(debug=True, host=host, port=port)
+        app.run(debug=False, host=host, port=port)  # Set debug=False for production
     except KeyboardInterrupt:
         logger.info("Server stopped by user")
     except Exception as e:
