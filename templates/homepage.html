@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>360 AI - Chatbot</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}"/>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <div class="brand-row">
+        <span class="logo-text">360 AI</span>
+        <img src="{{ url_for('static', filename='asset/himasif.png') }}" alt="Logo HIMASIF" class="icon">
+
+      </div>
+      <span class="powered">powered by deepseek</span>
+    </div>
+  </header>
+ 
+  <main>
+    <h1>Keluarkan semua pikiranmu disini</h1>
+    <div class="chatbox">
+      <input id="chat-input" type="text" placeholder="ngobrol dengan 360..." />
+      <button id="send-button" onclick="goToChat()">
+        <img src="{{ url_for('static', filename='asset/Arrow.png') }}" alt="Kirim">
+      </button>
+      <span class="tag">deepseek</span>
+    </div>
+    <div class="messages-container"></div>
+  </main>
+
+  <footer>
+    ©HIMASIF 2025
+  </footer>
+
+  <script>
+    function goToChat() {
+      var userInput = document.getElementById("chat-input").value.trim();
+      if (userInput !== "") {
+        window.location.href = "/chatpage";
+      } else {
+        alert("Tolong ketik sesuatu sebelum masuk ke chat!");
+      }
+    }
+    </script>
+    
+    
+</body>
+</html>

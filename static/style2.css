@@ -1,0 +1,141 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  @font-face {
+    font-family: 'Gendy';
+    src: url('fonts/Gendy.otf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'GT Walsheim Regular';
+    src: url('fonts/GT-Walsheim-Regular-Trial.otf') format('truetype');
+  }
+  
+  body {
+    background-color: #1F1F1F;
+    font-family: 'Segoe UI', sans-serif;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Gendy', sans-serif;
+  }
+
+  header {
+    padding: 20px;
+    background-color: #1F1F1F;
+    font-size: 1rem;
+    border-radius: 6px;  
+  }
+  
+  .logo {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .brand-row {
+    display: inline-flex;
+    gap: 6px;
+  }
+  
+  .logo-text {
+    font-size: 2.5rem;
+    font-weight: normal;
+    background: linear-gradient(to right, #0435D7, #59E5BE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+  
+  .powered {
+    color: #aaa;
+    font-size: 1rem;
+    font-family: 'GT Walsheim Regular';
+  }
+  
+  .icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  main h1 {
+    font-size: 2.8rem;
+    margin-bottom: 40px;
+    font-weight: 500;
+  }
+  
+  .chatbox {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 2px solid transparent;
+    border-radius: 15px;
+    padding: 15px 20px;
+    margin-top: 0px;
+    width: 100%;
+    max-width: 700px;
+    height: 80px;
+  
+    background-image:
+      linear-gradient(#1F1F1F, #1F1F1F),
+      linear-gradient(to right, #0435D7, #59E5BE);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  
+  }
+  
+  .chatbox input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'GT Walsheim Regular';
+    font-size: 1.6rem;
+    color: #fff;
+  }
+
+  .chatbox button {
+    background: linear-gradient(145deg, #0435D7, #59E5BE);
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .chatbox button img {
+    width: 28px;
+    height: 24px;
+  }
+  
+  .tag {
+    position: absolute;
+    right: 78px;
+    top: 48px;
+    font-size: 0.8rem;
+    color: #aaa;
+  }
+  
+  footer {
+    text-align: left;
+    font-size: 1rem;
+    padding: 10px 20px;
+    color: #ccc;
+  }
+  
+

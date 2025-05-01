@@ -17,8 +17,8 @@ app = Flask(__name__)
 
 # OpenRouter configuration
 OPENROUTER_API_KEY = "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"
-OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
-MODEL_NAME = "deepseek/deepseek-r1:free"
+OPENROUTER_BASE_URL = "https://openrouter.ai/nousresearch/deephermes-3-llama-3-8b-preview:free"
+MODEL_NAME = "nousresearch/deephermes-3-llama-3-8b-preview:free"
 SITE_URL = "https://www.sitename.com"
 SITE_NAME = "SiteName"
 TIMEOUT = 30
@@ -277,18 +277,27 @@ def chat():
 
 # Serve frontend files - UPDATED for Flask standard structure
 @app.route("/")
-def index():
-    try:
-        return render_template('index.html')
-    except Exception as e:
-        logger.error(f"Error rendering template: {str(e)}")
-        # Fallback to old method if template not found
-        frontend_path = os.path.join(os.path.dirname(__file__), "..", "frontend")
-        index_path = os.path.join(frontend_path, "index.html")
-        if os.path.exists(index_path):
-            return send_from_directory(frontend_path, "index.html")
-        else:
-            return "Frontend not found. Please check your folder structure.", 404
+def homepage():
+    return render_template("homepage.html")
+
+@app.route("/chatpage")
+def chatpage():
+    return render_template("chatpage.html")
+
+@app.route("/api/chat", methods=["POST"])
+def chat_api():
+    user_message = request.json.get("message")
+    response = client.chat.completions.create(
+        model=MODEL_NAME,
+        messages=[{"role": "system", "content": get_system_prompt()},
+                  {"role": "user", "content": user_message}]
+    )
+    bot_message = response.choices[0].message.content
+    return jsonify({"response": format_response(bot_message)})
+
+
+    
+
 
 # For static files
 @app.route("/<path:filename>")

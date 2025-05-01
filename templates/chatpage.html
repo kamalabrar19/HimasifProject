@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat dengan 360 AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style3.css') }}" />
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <div class="brand-row">
+        <span class="logo-text">360 AI</span>
+        <img src="{{ url_for('static', filename='asset/himasif.png') }}" alt="Logo HIMASIF" class="icon">
+
+      </div>
+      <span class="powered">powered by deepseek</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="chat-container" id="messages-container">
+      <!-- Pesan ditambahkan via JavaScript -->
+    </div>
+    <div class="chatbox">
+      <input id="chat-input" type="text" placeholder="Balas 360..."/>
+      <button id="send-button" onclick="goToChat()">
+        <img src="{{ url_for('static', filename='asset/Arrow.png') }}" alt="Kirim">
+      </button>
+    </div>
+    <p>360 dapat membuat kesalahan, pastikan cek lagi ya.</p>
+  </main>
+  <footer>
+    ©HIMASIF 2025
+  </footer>
+
+  <script src="{{ url_for('static', filename='script2.js') }}"></script>
+</body>
+</html>
