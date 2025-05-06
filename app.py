@@ -3,31 +3,25 @@ import requests
 import os
 import json
 import logging
-from openai import OpenAI
 import re
 
-# Configure logging
+# Konfigurasi logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
 
+# Define the Flask app
 app = Flask(__name__)
 
-# OpenRouter configuration
-OPENROUTER_API_KEY = "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"
-OPENROUTER_BASE_URL = "https://openrouter.ai/nousresearch/deephermes-3-llama-3-8b-preview:free"
-MODEL_NAME = "nousresearch/deephermes-3-llama-3-8b-preview:free"
+# Mengambil API Key dari variabel lingkungan
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
+MODEL_NAME = "deepseek/deepseek-r1-distill-llama-70b:free"
 SITE_URL = "https://www.sitename.com"
 SITE_NAME = "SiteName"
 TIMEOUT = 30
-
-# Initialize OpenAI client for OpenRouter
-client = OpenAI(
-    base_url=OPENROUTER_BASE_URL,
-    api_key=OPENROUTER_API_KEY,
-)
 
 # Load HIMASIF data from JSON file
 def load_himasif_data():
@@ -144,68 +138,6 @@ Anda juga bisa menjawab pertanyaan pertanyaan diluar dari data HIMASIF.
 Gunakan data berikut untuk menjawab pertanyaan secara akurat dan alami:
 
 {himasif_data_str}
-
-**Panduan Kerja:**
-- Jawab pertanyaan dengan jelas dan informatif.
-- Bisa menjawab pertanyaan umum serta dapat membuat sesuatu berdasarkan penulisan yang baik dan benar.
-- Bisa memprediksi akan hal yang akan terjadi berdasarkan konteks yang ada.
-- Pahami makna pertanyaan secara keseluruhan, bukan hanya kata kunci terpisah.
-- Bedakan konteks dengan cerdas:
-  - "Visi" berarti tujuan jangka panjang organisasi.
-  - "Misi" berarti langkah-langkah untuk mencapai visi.
-  - "Divisi" berarti unit kerja dalam departemen.
-  - "Departemen" berarti kelompok besar yang menaungi divisi.
-  - "Anggota" berarti daftar orang dalam organisasi atau divisi tertentu.
-  - "BPH" berarti Badan Pengurus Harian.
-  - "Kegiatan" berarti aktivitas atau program HIMASIF.
-  - "Media sosial" atau "sosial media" berarti informasi tentang akun Instagram dan YouTube HIMASIF.
-  - "Tagline" atau "hashtag" berarti informasi tentang slogan dan hashtag resmi HIMASIF.
-  - "Tupoksi" atau "tugas pokok dan fungsi" berarti deskripsi tanggung jawab dari departemen atau divisi.
-  - "Dosen" atau "Lecturer" berarti informasi tentang dosen-dosen program studi Sistem Informasi.
-  - "Kaprodi" atau "Ketua Program Studi" berarti kepala program studi Sistem Informasi.
-  - "Rektor" berarti pimpinan tertinggi universitas.
-  - "Pembina" merujuk pada dosen yang berperan sebagai pembimbing atau pembina organisasi mahasiswa.
-- Jika pertanyaan ambigu, pilih jawaban yang paling relevan berdasarkan konteks umum.
-- Jika data tidak tersedia, jawab: "Maaf, informasi tidak tersedia."
-- Jawab dalam Bahasa Indonesia yang sopan dan jelas.
-- Gunakan format bold (**text**) untuk informasi penting.
-- Gunakan heading Markdown (### untuk judul besar, #### untuk subjudul) jika perlu untuk struktur yang lebih jelas.
-- Untuk media sosial, WAJIB gunakan format Markdown [teks](URL) untuk setiap tautan, misalnya [Instagram](https://www.instagram.com/himasif360upj/). 
-- JANGAN tulis URL mentah tanpa format Markdown. JANGAN tulis nama platform tanpa tautan Markdown. JANGAN gabungkan teks dan tag HTML secara acak.
-- Tambahkan kalimat ajakan seperti "Silakan kunjungi akun resmi HIMASIF untuk informasi terkini!" saat menjawab tentang media sosial.
-- Hindari mencampur informasi yang tidak relevan (misalnya, visi dengan divisi).
-
-**Panduan untuk Pertanyaan tentang Dosen:**
-- Ketika ditanya "Siapa dosen Sistem Informasi UPJ?" atau pertanyaan serupa, berikan daftar lengkap dosen dari data.
-- Ketika ditanya "Siapa Ketua/Kepala Program Studi?" atau "Siapa Kaprodi?", jawab dengan informasi dari data lecturer yang memiliki posisi "Head of the Department of Information Systems".
-- Ketika ditanya "Siapa Rektor?", jawab dengan informasi dari data lecturer yang memiliki posisi "Rector".
-- Ketika ditanya tentang dosen tertentu, berikan informasi lengkap tentang dosen tersebut termasuk posisi/jabatannya.
-
-**Contoh:**
-- Pertanyaan: "Apa visi HIMASIF?"
-  Jawaban: **VISI HIMASIF:** [visi dari data]
-- Pertanyaan: "Divisi apa saja di HIMASIF?"
-  Jawaban: ### Daftar Divisi HIMASIF  
-  [daftar divisi dari data]
-- Pertanyaan: "Apa media sosial HIMASIF?"
-  Jawaban: ### Media Sosial HIMASIF  
-  - [Instagram](https://www.instagram.com/himasif360upj/)  
-  - [YouTube](https://www.youtube.com/@sisteminformasiupj8380)  
-  Silakan kunjungi akun resmi HIMASIF untuk informasi terkini!
-- Pertanyaan: "Apa tagline HIMASIF?"
-  Jawaban: **Tagline HIMASIF:** We Make IT Happen
-- Pertanyaan: "Apa hashtag HIMASIF?"
-  Jawaban: **Hashtag HIMASIF:** #sisteminformasi #sifupj #himasif360upj #WeMakeITHappen
-- Pertanyaan: "Siapa dosen di Sistem Informasi UPJ?"
-  Jawaban: ### Dosen Program Studi Sistem Informasi UPJ  
-  1. **Ir. Yudi Samyudia, Ph.D.** - Rektor UPJ
-  2. **Chaerul Anwar, S.Kom, M.T.I** - Kepala Program Studi Sistem Informasi
-  3. **Denny Ganjar Purnama, S.Si., MTI** - Kepala Biro Teknologi Informasi dan Komunikasi
-  [dan seterusnya]
-- Pertanyaan: "Siapa Kaprodi Sistem Informasi?"
-  Jawaban: **Kepala Program Studi Sistem Informasi UPJ** adalah **Chaerul Anwar, S.Kom, M.T.I**
-- Pertanyaan: "Siapa Rektor UPJ?"
-  Jawaban: **Rektor Universitas Pembangunan Jaya** adalah **Ir. Yudi Samyudia, Ph.D.**
 """
     return system_prompt
 
@@ -230,7 +162,7 @@ def health_check():
         "himasif_data": "loaded" if himasif_data else "not loaded"
     })
 
-# Chat endpoint
+# Chat endpoint - Using requests library directly instead of OpenAI
 @app.route("/chat", methods=["POST"])
 def chat():
     try:
@@ -244,29 +176,50 @@ def chat():
         # Get system prompt with data
         system_prompt = get_system_prompt()
         
-        # Use OpenRouter to generate response
+        # Set up headers for OpenRouter API
+        headers = {
+            "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+            "HTTP-Referer": SITE_URL,
+            "X-Title": SITE_NAME,
+            "Content-Type": "application/json"
+        }
+        
+        # Prepare the payload for the API request
+        payload = {
+            "model": MODEL_NAME,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ]
+        }
+        
+        # Make the API request to OpenRouter
         try:
             logger.info(f"Connecting to OpenRouter API with model {MODEL_NAME}")
-            completion = client.chat.completions.create(
-                extra_headers={
-                    "HTTP-Referer": SITE_URL,
-                    "X-Title": SITE_NAME,
-                },
-                model=MODEL_NAME,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
-                ],
+            response = requests.post(
+                f"{OPENROUTER_BASE_URL}/chat/completions",
+                headers=headers,
+                json=payload,
                 timeout=TIMEOUT
             )
             
-            ai_response = completion.choices[0].message.content
-            formatted_response = format_response(ai_response)
-            logger.info(f"AI response (formatted): {formatted_response[:100]}...")
-            return jsonify({"response": formatted_response})
+            if response.status_code == 200:
+                result = response.json()
+                ai_response = result['choices'][0]['message']['content']
+                formatted_response = format_response(ai_response)
+                logger.info(f"AI response (formatted): {formatted_response[:100]}...")
+                return jsonify({"response": formatted_response})
+            else:
+                logger.error(f"OpenRouter API error: {response.status_code}, {response.text}")
+                fallback = himasif_data.get("defaultResponse", "Maaf, saya tidak bisa memberikan jawaban saat ini.")
+                formatted_fallback = format_response(fallback)
+                return jsonify({"response": formatted_fallback})
             
-        except Exception as e:
-            logger.error(f"OpenRouter API error: {str(e)}")
+        except requests.exceptions.Timeout:
+            logger.error(f"OpenRouter API timeout after {TIMEOUT} seconds")
+            return jsonify({"response": "Maaf, permintaan timeout. Silakan coba lagi nanti."})
+        except requests.exceptions.RequestException as e:
+            logger.error(f"OpenRouter API request error: {str(e)}")
             fallback = himasif_data.get("defaultResponse", "Maaf, saya tidak bisa memberikan jawaban saat ini.")
             formatted_fallback = format_response(fallback)
             return jsonify({"response": formatted_fallback})
@@ -275,39 +228,26 @@ def chat():
         logger.error(f"Unexpected error: {str(e)}")
         return jsonify({"error": f"Kesalahan server: {str(e)}"}), 500
 
-# Serve frontend files - UPDATED for Flask standard structure
+# Serve frontend files
 @app.route("/")
-def homepage():
-    return render_template("homepage.html")
-
-@app.route("/chatpage")
-def chatpage():
-    return render_template("chatpage.html")
-
-@app.route("/api/chat", methods=["POST"])
-def chat_api():
-    user_message = request.json.get("message")
-    response = client.chat.completions.create(
-        model=MODEL_NAME,
-        messages=[{"role": "system", "content": get_system_prompt()},
-                  {"role": "user", "content": user_message}]
-    )
-    bot_message = response.choices[0].message.content
-    return jsonify({"response": format_response(bot_message)})
-
-
-    
-
+def index():
+    try:
+        return render_template('index.html')
+    except Exception as e:
+        logger.error(f"Error rendering template: {str(e)}")
+        frontend_path = os.path.join(os.path.dirname(__file__), "..", "frontend")
+        index_path = os.path.join(frontend_path, "homepage.html")
+        if os.path.exists(index_path):
+            return send_from_directory(frontend_path, "chatpage.html")
+        else:
+            return "Frontend not found. Please check your folder structure.", 404
 
 # For static files
 @app.route("/<path:filename>")
 def serve_static(filename):
-    # First try the standard Flask static folder
     static_path = os.path.join(os.path.dirname(__file__), "static", filename)
     if os.path.exists(static_path):
         return send_from_directory("static", filename)
-    
-    # Fallback to old path if file not found in standard location
     frontend_path = os.path.join(os.path.dirname(__file__), "..", "frontend")
     file_path = os.path.join(frontend_path, filename)
     if os.path.exists(file_path):
@@ -336,14 +276,11 @@ if __name__ == "__main__":
     except Exception as e:
         logger.warning(f"⚠️ Could not connect to OpenRouter API: {str(e)}")
     
-    # Gunakan port dari environment variable atau 5000 sebagai default
     port = int(os.environ.get('PORT', 5000))
-    # Gunakan 0.0.0.0 untuk development, tetapi bisa diubah menjadi 127.0.0.1 untuk lokal saja
-    host = os.environ.get('HOST', '127.0.0.1')
-    
+    host = os.environ.get('HOST', '0.0.0.0')  # Changed from 127.0.0.1 to 0.0.0.0 for deployment
     logger.info(f"Starting server on http://{host}:{port}")
     try:
-        app.run(debug=True, host=host, port=port)
+        app.run(debug=False, host=host, port=port)  # Set debug=False for production
     except KeyboardInterrupt:
         logger.info("Server stopped by user")
     except Exception as e:
