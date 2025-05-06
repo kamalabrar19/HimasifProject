@@ -21,7 +21,7 @@
   <main>
     <h1>Keluarkan semua pikiranmu disini</h1>
     <div class="chatbox">
-      <input id="chat-input" type="text" placeholder="ngobrol dengan 360..." />
+      <input id="chat-input-awal" type="text" placeholder="ngobrol dengan 360..." />
       <button id="send-button" onclick="goToChat()">
         <img src="{{ url_for('static', filename='asset/Arrow.png') }}" alt="Kirim">
       </button>
@@ -36,15 +36,29 @@
 
   <script>
     function goToChat() {
-      var userInput = document.getElementById("chat-input").value.trim();
+      var userInput = document.getElementById("chat-input-awal").value.trim();
+      if (!userInput) return;
+      sessionStorage.setItem("firstMessage", userInput);
       if (userInput !== "") {
         window.location.href = "/chatpage";
       } else {
         alert("Tolong ketik sesuatu sebelum masuk ke chat!");
       }
     }
-    </script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+    var input = document.getElementById("chat-input-awal");
+    input.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault(); // mencegah submit form default (jika ada)
+        goToChat();
+        input.value = ""; // mengosongkan input setelah pengiriman
+      }
+    });
+  });
+  </script>
     
-    
+  <script src="{{ url_for('static', filename='script2.js') }}"></script>  
+
 </body>
 </html>
