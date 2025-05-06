@@ -281,7 +281,7 @@ if __name__ == "__main__":
         logger.warning(f"⚠️ Could not connect to OpenRouter API: {str(e)}")
     
     port = int(os.environ.get('PORT', 5000))
-    host = os.environ.get('HOST', '0.0.0.0')  # Using 127.0.0.1 for local development
+    host = os.environ.get('HOST', '0.0.0.0:8080')  # Using 127.0.0.1 for local development
     logger.info(f"Starting server on http://{host}:{port}")
     try:
         app.run(debug=True, host=host, port=port)  # Set debug=True for development
