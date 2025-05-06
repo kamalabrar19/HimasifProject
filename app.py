@@ -228,19 +228,23 @@ def chat():
         logger.error(f"Unexpected error: {str(e)}")
         return jsonify({"error": f"Kesalahan server: {str(e)}"}), 500
 
-# Serve frontend files
+# Serve main homepage (using the new template)
 @app.route("/")
 def index():
     try:
-        return render_template('index.html')
+        return render_template('homepage.html')
     except Exception as e:
-        logger.error(f"Error rendering template: {str(e)}")
-        frontend_path = os.path.join(os.path.dirname(__file__), "..", "frontend")
-        index_path = os.path.join(frontend_path, "homepage.html")
-        if os.path.exists(index_path):
-            return send_from_directory(frontend_path, "chatpage.html")
-        else:
-            return "Frontend not found. Please check your folder structure.", 404
+        logger.error(f"Error rendering homepage template: {str(e)}")
+        return "Homepage template not found. Please check your templates folder.", 404
+
+# Serve chat page
+@app.route("/chatpage")
+def chatpage():
+    try:
+        return render_template('chatpage.html')
+    except Exception as e:
+        logger.error(f"Error rendering chatpage template: {str(e)}")
+        return "Chatpage template not found. Please check your templates folder.", 404
 
 # For static files
 @app.route("/<path:filename>")
@@ -277,10 +281,10 @@ if __name__ == "__main__":
         logger.warning(f"⚠️ Could not connect to OpenRouter API: {str(e)}")
     
     port = int(os.environ.get('PORT', 5000))
-    host = os.environ.get('HOST', '0.0.0.0')  # Changed from 127.0.0.1 to 0.0.0.0 for deployment
+    host = os.environ.get('HOST', '127.0.0.1')  # Using 127.0.0.1 for local development
     logger.info(f"Starting server on http://{host}:{port}")
     try:
-        app.run(debug=False, host=host, port=port)  # Set debug=False for production
+        app.run(debug=True, host=host, port=port)  # Set debug=True for development
     except KeyboardInterrupt:
         logger.info("Server stopped by user")
     except Exception as e:
