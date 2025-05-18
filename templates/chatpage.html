@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Chat dengan 360 AI</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style3.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -23,14 +24,15 @@
     <div class="chat-container" id="chat-container" >
       <!-- Pesan ditambahkan via JavaScript -->
     </div>
-    <div class="chatbox">
-      <input id="chat-input" type="text" placeholder="Balas 360..."/>
-      <button id="send-button" onclick="goToChat()">
-        <img src="{{ url_for('static', filename='asset/Arrow.png') }}" alt="Kirim">
-      </button>
-    </div>
-    <p>360 dapat membuat kesalahan, pastikan cek lagi ya.</p>
   </main>
+
+  <div class="chatbox">
+    <input id="chat-input" type="text" placeholder="Balas 360...">
+    <button id="send-button" onclick="goToChat()">
+      <img src="{{ url_for('static', filename='asset/Arrow.png') }}" alt="Kirim">
+    </button>
+  </div>
+  <div class="ceklagi">360 dapat membuat kesalahan, pastikan cek lagi ya.</div>
   <footer>
     ©HIMASIF 2025
   </footer>

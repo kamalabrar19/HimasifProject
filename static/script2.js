@@ -45,30 +45,36 @@ document.addEventListener("DOMContentLoaded", function () {
             iconContainer.classList.add("icon-container");
 
             const icons = [
-                { src: "./asset/copy.png", alt: "Copy", handler: () => navigator.clipboard.writeText(message) },
-                { src: "./asset/like.png", alt: "Like", handler: () => console.log("Liked") },
-                { src: "./asset/dislike.png", alt: "Dislike", handler: () => console.log("Disliked") }
-            ];
+                { iconClass: "fa-regular fa-copy", handler: () => navigator.clipboard.writeText(message) },
+                { iconClass: "fa-regular fa-thumbs-up", handler: () => console.log("Liked") },
+                { iconClass: "fa-regular fa-thumbs-down", handler: () => console.log("Disliked") }
+            ];            
 
             icons.forEach(icon => {
                 const button = document.createElement("button");
                 button.classList.add("icon-button");
-
-                const img = document.createElement("img");
-                img.src = icon.src;
-                img.alt = icon.alt;
-                img.classList.add("icon-img");
-
-                button.appendChild(img);
+            
+                const iconElement = document.createElement("i");
+                icon.iconClass.split(" ").forEach(cls => iconElement.classList.add(cls)); // Tambahkan semua class
+            
+                button.appendChild(iconElement);
                 button.onclick = () => {
-                    icon.handler();
+                    const isAlreadyClicked = button.classList.contains("clicked-icon");
+                
+                    // Reset semua ikon
                     const allButtons = iconContainer.querySelectorAll(".icon-button");
                     allButtons.forEach(btn => btn.classList.remove("clicked-icon"));
-                    button.classList.add("clicked-icon");
-                };
-
+                
+                    if (!isAlreadyClicked) {
+                        button.classList.add("clicked-icon");
+                        icon.handler();
+                    } else {
+                        console.log(`${icon.iconClass} unselected`);
+                    }
+                };                
+            
                 iconContainer.appendChild(button);
-            });
+            });            
 
             messageElement.appendChild(iconContainer);
         }
