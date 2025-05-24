@@ -1,0 +1,15 @@
+{
+  "organization": {
+    "name": "HIMASIF (Himpunan Mahasiswa Sistem Informasi)",
+    "university": "Universitas Pembangunan Jaya",
+    "vision": "Menjadi himpunan yang unggul dalam pengembangan teknologi informasi.",
+    "mission": [
+      "Mengembangkan minat dan bakat mahasiswa Sistem Informasi"
+    ],
+    "social_media": {
+      "instagram": "https://www.instagram.com/himasif360upj/",
+      "youtube": "https://www.youtube.com/@sisteminformasiupj8380"
+    }
+  },
+  "defaultResponse": "Maaf, saya masih dalam tahap pengembangan dan belum memiliki data lengkap."
+}
