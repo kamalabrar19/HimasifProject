@@ -2,6 +2,11 @@ import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './HomePage.css'
 
+//import image
+import logo from '../assets/images/himasif.png'
+import instagram from '../assets/images/instagram_icon.png'
+import youtube from '../assets/images/youtube_icon.png'
+
 function HomePage() {
   const [query, setQuery] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -43,6 +48,9 @@ function HomePage() {
       <div className="homepage-container">
         {/* Header */}
         <header className="homepage-header">
+          <div className="logo">
+            <img src={logo} alt="Logo HIMASIF" />
+          </div>
           <div className="brand">
             <h1 className="brand-title">360 AI</h1>
             <p className="brand-subtitle">HIMASIF Assistant</p>
@@ -119,20 +127,30 @@ function HomePage() {
         {/* Footer */}
         <footer className="homepage-footer">
           <p className="footer-text">
-            💬 Ask anything • 🤖 Powered by 360 AI • 🚀 HIMASIF UPJ
+            Ask anything • Powered by 360 AI • HIMASIF UPJ
           </p>
           <div className="footer-links">
-            <a href="/chat" className="footer-link">
-              💬 Direct Chat
+            <a href="https://www.instagram.com/direct/t/113548216706971" target="_blank" rel="noopener noreferrer" className="footer-link">
+              💬 Direct Message
             </a>
             <span className="footer-separator">•</span>
             <a href="https://www.instagram.com/himasif360upj/" target="_blank" rel="noopener noreferrer" className="footer-link">
-              📸 Instagram
+              <div className="footer-instagram">
+                <img src={instagram} alt="Instagram HIMASIF" />
+                <p>Instagram</p>
+              </div>
             </a>
             <span className="footer-separator">•</span>
             <a href="https://www.youtube.com/@sisteminformasiupj8380" target="_blank" rel="noopener noreferrer" className="footer-link">
-              🎥 YouTube
+              <div className="footer-youtube">
+                <img src={youtube} alt="Youtube HIMASIF" />
+                <p>Youtube</p>
+              </div>
             </a>
+          </div>
+          <br/>
+          <div className="footer-copyright">
+            <p>&copy;HIMASIF 2025</p>
           </div>
         </footer>
       </div>

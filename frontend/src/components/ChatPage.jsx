@@ -3,6 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import Toast from './Toast'
 import './ChatPage.css'
 
+//import images
+import whatsapp from '../assets/images/Whatsapp-logo.png'
+import telegram from '../assets/images/Telegram-logo.png'
+import x from '../assets/images/x-logo.png'
+
 function ChatPage() {
   const location = useLocation()
   const navigate = useNavigate()
@@ -293,36 +298,29 @@ Silakan ketik pertanyaan Anda.`,
                         {showShareMenu === message.id && (
                           <div className="share-menu" onClick={(e) => e.stopPropagation()}>
                             <div className="share-menu-header">
-                              <span>📤 Share Response</span>
+                              <span>Share Response</span>
                             </div>
                             <div className="share-options">
                               <button
                                 className="share-option"
                                 onClick={() => shareMessage(message.text, message.id, 'whatsapp')}
                               >
-                                <span className="share-icon">💬</span>
+                                <span className="share-icon"><img src={whatsapp} /></span>
                                 <span>WhatsApp</span>
                               </button>
                               <button
                                 className="share-option"
                                 onClick={() => shareMessage(message.text, message.id, 'telegram')}
                               >
-                                <span className="share-icon">✈️</span>
+                                <span className="share-icon"><img src={telegram} /></span>
                                 <span>Telegram</span>
                               </button>
                               <button
                                 className="share-option"
                                 onClick={() => shareMessage(message.text, message.id, 'twitter')}
                               >
-                                <span className="share-icon">🐦</span>
-                                <span>Twitter</span>
-                              </button>
-                              <button
-                                className="share-option"
-                                onClick={() => shareMessage(message.text, message.id, 'linkedin')}
-                              >
-                                <span className="share-icon">💼</span>
-                                <span>LinkedIn</span>
+                                <span className="share-icon"><img src={x} /></span>
+                                <span>X</span>
                               </button>
                               <button
                                 className="share-option"
@@ -381,7 +379,7 @@ Silakan ketik pertanyaan Anda.`,
           </div>
           <div className="input-footer">
             <span className="footer-text">
-              360 AI • HIMASIF UPJ
+              &copy;HIMASIF 2025
             </span>
           </div>
         </div>

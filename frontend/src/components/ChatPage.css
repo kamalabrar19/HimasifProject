@@ -1,9 +1,20 @@
+@font-face {
+  font-family: 'Gendy';
+  src: url(../assets/fonts/Gendy.otf);
+}
+
+@font-face {
+  font-family: 'GT Walsheim';
+  src: url(../assets/fonts/GT-Walsheim-Regular-Trial.otf);
+}
+
+
 /* Chat Page - Modern Design */
 .chat-page {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+  background: #1f1f1f;
   color: #ffffff;
 }
 
@@ -55,17 +66,20 @@
 }
 
 .logo-text {
+  font-family: 'Gendy';
   font-size: 1.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #ffffff 0%, #a78bfa 100%);
+  background: linear-gradient(225deg, #59e5be 28%, #0435d7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin: 0;
   letter-spacing: -0.025em;
+  white-space: nowrap;
 }
 
 .logo-subtitle {
+  font-family: 'GT Walsheim';
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.6);
   margin: 0;
@@ -170,7 +184,7 @@
 }
 
 .message.user .message-content {
-  background: linear-gradient(135deg, #a78bfa 0%, #06b6d4 100%);
+  background: linear-gradient(315deg, #0435d7 0%, #59e5be 87%);
   color: #ffffff;
   border-radius: 1.25rem 1.25rem 0.5rem 1.25rem;
   padding: 1rem 1.25rem;
@@ -272,7 +286,7 @@
   bottom: 100%;
   right: 0;
   margin-bottom: 0.5rem;
-  background: rgba(15, 15, 35, 0.95);
+  background: #2d2d2d;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 0.75rem;
   padding: 0.75rem;
@@ -330,8 +344,7 @@
   transform: translateX(2px);
 }
 
-.share-icon {
-  font-size: 1rem;
+.share-icon img {
   width: 20px;
   display: flex;
   align-items: center;
@@ -411,6 +424,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding: 1.5rem;
   backdrop-filter: blur(20px);
+  width: 100%;
 }
 
 .input-wrapper {
@@ -454,7 +468,7 @@
 }
 
 .send-button {
-  background: linear-gradient(135deg, #a78bfa 0%, #06b6d4 100%);
+  background: linear-gradient(135deg, #0435d7 0%, #59e5be 87%);
   color: #ffffff;
   border: none;
   border-radius: 0.75rem;
@@ -487,8 +501,9 @@
 }
 
 .footer-text {
+  font-family: 'Gendy';
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.4);
+  color: #fff;
   text-align: center;
 }
 

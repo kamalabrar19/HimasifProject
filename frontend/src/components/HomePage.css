@@ -1,4 +1,14 @@
 /* Homepage - Perplexity AI Inspired Design */
+@font-face {
+  font-family: 'Gendy';
+  src: url(../assets/fonts/Gendy.otf);
+}
+
+@font-face {
+  font-family: 'GT Walsheim';
+  src: url(../assets/fonts/GT-Walsheim-Regular-Trial.otf);
+}
+
 .homepage {
   min-height: 100vh;
   background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
@@ -17,10 +27,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background:
-    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+  background: #1f1f1f;
   pointer-events: none;
 }
 
@@ -34,8 +41,16 @@
 
 /* Header */
 .homepage-header {
-  text-align: center;
   margin-bottom: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10%;
+  gap: 0.8rem;
+}
+
+.logo {
+  width: 70px;
 }
 
 .brand {
@@ -43,17 +58,21 @@
 }
 
 .brand-title {
+  font-family: 'Gendy';
   font-size: 4rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #ffffff 0%, #a78bfa 50%, #06b6d4 100%);
+  background: linear-gradient(45deg, #0435d7 0%, #59e5be 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 0.5rem;
   letter-spacing: -0.02em;
+  margin: 0%;
+  line-height: 1;
 }
 
 .brand-subtitle {
+  text-align: center;
+  font-family: 'GT Walsheim';
   font-size: 1.125rem;
   color: rgba(255, 255, 255, 0.7);
   font-weight: 400;
@@ -82,8 +101,7 @@
 }
 
 .search-input-wrapper:focus-within {
-  border-color: rgba(167, 139, 250, 0.5);
-  box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.3), 0 8px 32px rgba(167, 139, 250, 0.15);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3), 0 8px 32px rgba(255, 255, 255, 0.1) ;
   background: rgba(255, 255, 255, 0.12);
 }
 
@@ -127,7 +145,7 @@
 }
 
 .search-button {
-  background: linear-gradient(135deg, #a78bfa 0%, #06b6d4 100%);
+  background: linear-gradient(135deg, #0435d7 0%, #59e5be 87%);
   color: #ffffff;
 }
 
@@ -202,7 +220,7 @@
 
 .suggestion-card:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(167, 139, 250, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
@@ -225,7 +243,7 @@
 }
 
 .suggestion-card:hover .suggestion-arrow {
-  color: #a78bfa;
+  color: rgba(255, 255, 255, 0.3);
   transform: translate(2px, -2px);
 }
 
@@ -264,9 +282,26 @@
   transform: translateY(-1px);
 }
 
+.footer-instagram,
+.footer-youtube {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.footer-instagram img,
+.footer-youtube img {
+  width: 20px;
+}
+
 .footer-separator {
   color: rgba(255, 255, 255, 0.3);
   font-size: 0.8rem;
+}
+
+.footer-copyright {
+  color: #ffffff;
+  font-family: 'Gendy';
 }
 
 /* Responsive Design */
