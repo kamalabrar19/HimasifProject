@@ -173,19 +173,6 @@ HIMASIF adalah Himpunan Mahasiswa Sistem Informasi di Universitas Pembangunan Ja
             return """
 **Struktur Organisasi HIMASIF**
 
-**BPH (Badan Pengurus Harian):**
-• Ketua Umum: Rafi Akbar Wibowo
-• Wakil Ketua: Daffa Raihan Maulana
-• Sekretaris: Salsabila Putri Maharani
-• Bendahara: Naufal Dzaky Ramadhani
-
-**Departemen PSDM:**
-• Ketua: Muhammad Rifadh Athallah
-• Wakil: Ezra Jelianti Silaban
-
-**Departemen Relasi:**
-• Ketua: Daffa Raihan Maulana
-• Wakil: Salsabila Putri Maharani
 
 *Untuk informasi lengkap tentang divisi dan anggota, silakan konfigurasi API key.*
 """
