@@ -1,18 +1,21 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import HomePage from './components/HomePage'
-import ChatPage from './components/ChatPage'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import HomePage from "./components/HomePage"
+import ChatPage from "./components/ChatPage"
+import { ThemeProvider } from "./context/ThemeContext"
+import "./App.css"
 
 function App() {
   return (
-    <Router>
-      <div className="app">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/chat" element={<ChatPage />} />
-        </Routes>
-      </div>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/chat" element={<ChatPage />} />
+          </Routes>
+        </div>
+      </Router>
+    </ThemeProvider>
   )
 }
 
