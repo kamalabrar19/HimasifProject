@@ -166,7 +166,6 @@ HIMASIF adalah Himpunan Mahasiswa Sistem Informasi di Universitas Pembangunan Ja
 • Instagram: {himasif_data['organization']['social_media']['instagram']}
 • YouTube: {himasif_data['organization']['social_media']['youtube']}
 
-*Untuk pengalaman AI yang lebih pintar, silakan konfigurasi OpenRouter API key.*
 """
 
         elif any(keyword in question_lower for keyword in ['pengurus', 'struktur', 'organisasi']):
@@ -309,7 +308,7 @@ def chat():
                 {"role": "user", "content": user_prompt}
             ],
             "temperature": 0.7,
-            "max_tokens": 1000,
+            "max_tokens": 3000,
             "top_p": 1,
             "frequency_penalty": 0,
             "presence_penalty": 0

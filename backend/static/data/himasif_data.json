@@ -166,7 +166,7 @@
           "id": "PDD",
           "name": "PDD",
           "fullName": "Publikasi, Dokumentasi, dan Desain",
-          "description": "Divisi Publikasi, Dokumentasi, dan Desain (PDD) adalah divisi yang bertanggung jawab dalam mengelola publikasi informasi, mendokumentasikan kegiatan, serta merancang media visual untuk mendukung citra dan komunikasi Himpunan Mahasiswa Sistem Informasi (HIMASIF). Divisi ini berperan dalam memastikan setiap informasi dan dokumentasi tersampaikan dengan jelas, menarik, serta sesuai dengan identitas Himpunan Mahasiswa Sistem Informasi (HIMASIF).",
+          "description": "Divisi Publikasi, Dokumentasi, dan Desain (PDD) adalah divisi yang bertanggung jawab dalam mengelola publikasi informasi, mendokumentasikan kegiatan, serta merancang media visual untuk mendukung citra dan komunikasi Himpunan Mahasiswa Sistem Informasi (HIMASIF).",
           "head": {"id": 29, "name": "Anezza Nuraina", "position": "Kepala Divisi PDD", "nim": "2023081064"},
           "members": [
             {"id": 30, "name": "Bajra Bhagawanta", "position": "Anggota Divisi PDD", "nim": "2022081058"},
@@ -205,19 +205,136 @@
   ],
   "activities": [
     {
-      "id": "seminar",
-      "name": "Seminar Teknologi",
-      "description": "Kegiatan seminar dengan mengundang praktisi industri teknologi informasi"
+      "id": 1,
+      "name": "DiscusSIF",
+      "description": "Talkshow gerbang karir international yang mengundang beberapa CEO perusahaan Jepang, dilakukan secara hybrid.",
+      "scheduled_time": "Minggu ke-1 Maret 2025"
     },
     {
-      "id": "workshop",
-      "name": "Workshop Pemrograman",
-      "description": "Pelatihan keterampilan pemrograman untuk mahasiswa Sistem Informasi"
+      "id": 2,
+      "name": "Workshop SMA",
+      "description": "Kegiatan coding roadshow yang mendatangi SMA Sederajat di Tangerang Selatan.",
+      "scheduled_time": "Minggu ke-2 Maret 2025"
     },
     {
-      "id": "kunjungan",
-      "name": "Kunjungan Industri",
-      "description": "Kunjungan ke perusahaan teknologi untuk mengenal dunia kerja"
+      "id": 3,
+      "name": "Master SIF (Edisi E-Sport)",
+      "description": "Kegiatan Turnamen sport ataupun e-sport yang diselenggarakan untuk internal prodi SIF (Edisi E-Sport: FIFA).",
+      "scheduled_time": "Minggu ke-2 Maret 2025"
+    },
+    {
+      "id": 4,
+      "name": "Buka Bersama (SIFTAR)",
+      "description": "Buka bersama keluarga besar (Mahasiswa Aktif, Alumni, dan Dosen) Sistem Informasi.",
+      "scheduled_time": "Minggu ke-4 Maret 2025"
+    },
+    {
+      "id": 5,
+      "name": "Master SIF (Edisi Sport)",
+      "description": "Kegiatan Turnamen sport ataupun e-sport yang diselenggarakan untuk internal prodi SIF (Edisi Sport: Permainan Tradisional Indonesia).",
+      "scheduled_time": "Minggu ke-2 Mei 2025"
+    },
+    {
+      "id": 6,
+      "name": "SIF Smart Battle (SSB)",
+      "description": "Lomba akademik (cerdas cermat) seputar pengetahuan umum dengan konsep family 100.",
+      "scheduled_time": "Minggu ke-3 Mei 2025"
+    },
+    {
+      "id": 7,
+      "name": "Information System Invitation (ISI)",
+      "description": "HIMASIF collab/sparing dengan Himpunan Mahasiswa (HIMA) prodi lain, cabang olahraga yang dilaksanakan sesuai dengan kesepakatan kedua HIMA.",
+      "scheduled_time": "Minggu ke-4 Mei 2025"
+    },
+    {
+      "id": 8,
+      "name": "GID HUB",
+      "description": "Event tahunan yang mencakup lomba akademik maupun non akademik dengan tujuan mengenalkan prodi SIF kepada umum.",
+      "scheduled_time": "Minggu ke-1-4 Juni 2025"
+    },
+    {
+      "id": 9,
+      "name": "Discus SIF",
+      "description": "Kegiatan belajar bersama yang diadakan oleh HIMASIF sebelum minggu UTS / UAS.",
+      "scheduled_time": "Minggu ke-3 Juni 2025"
+    },
+    {
+      "id": 10,
+      "name": "Company Visit",
+      "description": "Kunjungan ke salah satu company yang dituju.",
+      "scheduled_time": "Minggu ke-3 Juli 2025"
+    },
+    {
+      "id": 11,
+      "name": "Safari Techno I",
+      "description": "Kegiatan masa bimbingan yang berisi informasi seputar jurusan Sistem Informasi untuk mahasiswa baru.",
+      "scheduled_time": "Minggu ke-1 September 2025"
+    },
+    {
+      "id": 12,
+      "name": "Information System Invitation (ISI)",
+      "description": "HIMASIF collab/sparing dengan Himpunan Mahasiswa (HIMA) prodi lain, cabang olahraga yang dilaksanakan sesuai dengan kesepakatan kedua HIMA.",
+      "scheduled_time": "Minggu ke-2 September 2025"
+    },
+    {
+      "id": 13,
+      "name": "LKMM I (Information System Leadership Training/ISLT)",
+      "description": "Latihan Keterampilan Manajemen Mahasiswa untuk Mahasiswa Baru SIF 2025.",
+      "scheduled_time": "Minggu ke-3 September 2025"
+    },
+    {
+      "id": 14,
+      "name": "Akademik Day I",
+      "description": "Akademik day yang berisi pengajaran html dan crud untuk Mahasiswa Baru SIF 2025.",
+      "scheduled_time": "Minggu ke-4 September 2025"
+    },
+    {
+      "id": 15,
+      "name": "LKMM II (Information System Leadership Training/ISLT)",
+      "description": "Latihan Keterampilan Manajemen Mahasiswa untuk Mahasiswa Baru SIF 2025.",
+      "scheduled_time": "Minggu ke-1 Oktober 2025"
+    },
+    {
+      "id": 16,
+      "name": "LKMM III (Information System Leadership Training/ISLT)",
+      "description": "Latihan Keterampilan Manajemen Mahasiswa untuk Mahasiswa Baru SIF 2025.",
+      "scheduled_time": "Minggu ke-3 Oktober 2025"
+    },
+    {
+      "id": 17,
+      "name": "Akademik Day II",
+      "description": "Akademik day yang berisi pengajaran html dan crud untuk Mahasiswa Baru SIF 2025.",
+      "scheduled_time": "Minggu ke-4 Oktober 2025"
+    },
+    {
+      "id": 18,
+      "name": "SIF Stars Of The Year (SSOTY)",
+      "description": "Pemberian bermacam awards untuk seluruh dosen dan mahasiswa sistem informasi disertai hiburan.",
+      "scheduled_time": "Minggu ke-1 November 2025"
+    },
+    {
+      "id": 19,
+      "name": "Safari Techno II",
+      "description": "Kegiatan masa bimbingan yang berisi informasi seputar jurusan Sistem Informasi untuk mahasiswa baru.",
+      "scheduled_time": "Minggu ke-3 November 2025"
+    },
+    {
+      "id": 20,
+      "name": "Sosialisasi Program Kreativitas Mahasiswa (PKM)",
+      "description": "Sosialisasi Program Kreativitas Mahasiswa (PKM) untuk mahasiswa beasiswa atau mahasiswa yang ingin mengikuti Program Kreativitas Mahasiswa (PKM).",
+      "scheduled_time": "Minggu ke-4 November 2025"
+    },
+    {
+      "id": 21,
+      "name": "SIF Got Talent (SGT)",
+      "description": "Lomba penampilan seni yang dilaksanakan untuk Mahasiswa Baru SIF 2025.",
+      "scheduled_time": "Minggu ke-1 Desember 2025"
+    },
+    {
+      "id": 22,
+      "name": "FOURFEO",
+      "description": "Turnamen Mini Soccer untuk mahasiswa dan alumni SIF.",
+      "scheduled_time": "Minggu ke-3 Desember 2025"
     }
   ],
   "faq": {
