@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { onAuthStateChanged } from "firebase/auth"
 import { auth } from "../lib/firebase"
@@ -20,8 +20,8 @@ function HomePage() {
   const navigate = useNavigate()
   const inputRef = useRef(null)
 
-  // Listen untuk auth state changes
-  useState(() => {
+  // Listen untuk auth state changes - DIPERBAIKI: gunakan useEffect bukan useState
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setUser(user)
     })
@@ -31,8 +31,10 @@ function HomePage() {
   const handleSearch = async () => {
     if (!query.trim() || isLoading) return
     setIsLoading(true)
+    
     // Navigate to chat with the query
     navigate("/chat", { state: { initialQuery: query.trim() } })
+    setIsLoading(false) // Reset loading state
   }
 
   const handleKeyDown = (e) => {

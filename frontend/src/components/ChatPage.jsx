@@ -18,19 +18,17 @@ function ChatPage() {
   const [copiedMessageId, setCopiedMessageId] = useState(null)
   const [showShareMenu, setShowShareMenu] = useState(null)
   const [toast, setToast] = useState({ isVisible: false, message: "", type: "success" })
+  const [hasProcessedInitialQuery, setHasProcessedInitialQuery] = useState(false) // TAMBAHAN: flag untuk mencegah double processing
   const messagesEndRef = useRef(null)
   const inputRef = useRef(null)
+  const initialQueryRef = useRef(null) // REF untuk initial query
 
-  // Handle initial query from homepage
+  // Handle initial query from homepage - FIXED PROPERLY
   useEffect(() => {
-    if (location.state?.initialQuery) {
-      const initialQuery = location.state.initialQuery
-      setInputMessage(initialQuery)
-      // Auto-send the initial query
-      setTimeout(() => {
-        sendMessage(initialQuery)
-      }, 500)
-    } else {
+    if (location.state?.initialQuery && !hasProcessedInitialQuery) {
+      initialQueryRef.current = location.state.initialQuery
+      setHasProcessedInitialQuery(true)
+    } else if (!location.state?.initialQuery && !hasProcessedInitialQuery) {
       // Add welcome message if no initial query
       setMessages([
         {
@@ -48,8 +46,18 @@ Silakan ketik pertanyaan Anda.`,
           timestamp: new Date(),
         },
       ])
+      setHasProcessedInitialQuery(true)
     }
-  }, [location.state])
+  }, [location.state?.initialQuery, hasProcessedInitialQuery])
+
+  // Separate effect untuk send initial query setelah sendMessage ready
+  useEffect(() => {
+    if (initialQueryRef.current && hasProcessedInitialQuery) {
+      const queryToSend = initialQueryRef.current
+      initialQueryRef.current = null // Clear ref
+      sendMessage(queryToSend)
+    }
+  }, [hasProcessedInitialQuery])
 
   useEffect(() => {
     scrollToBottom()
@@ -60,17 +68,18 @@ Silakan ketik pertanyaan Anda.`,
   }
 
   const sendMessage = async (messageText = inputMessage) => {
-    if (!messageText.trim() || isLoading) return
+    const textToSend = messageText.trim()
+    if (!textToSend || isLoading) return // Cek apakah sedang loading dan pastikan pesan tidak kosong
 
     const userMessage = {
       id: Date.now(),
-      text: messageText.trim(),
+      text: textToSend,
       sender: "user",
       timestamp: new Date(),
     }
 
     setMessages((prev) => [...prev, userMessage])
-    setInputMessage("")
+    setInputMessage("") // Clear input setelah mengirim
     setIsLoading(true)
 
     try {
@@ -79,7 +88,7 @@ Silakan ketik pertanyaan Anda.`,
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: messageText.trim() }),
+        body: JSON.stringify({ message: textToSend }),
       })
 
       if (!response.ok) {
@@ -107,19 +116,144 @@ Silakan ketik pertanyaan Anda.`,
       setMessages((prev) => [...prev, errorMessage])
       setConnectionStatus("disconnected")
     } finally {
-      setIsLoading(false)
+      setIsLoading(false) // Pastikan status loading diubah setelah proses selesai
     }
   }
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault()
-      sendMessage()
+      e.preventDefault() // Mencegah enter menambahkan line baru
+      if (!isLoading && inputMessage.trim()) { // Pastikan ada text dan tidak loading
+        sendMessage()
+      }
     }
   }
 
   const formatMessage = (text) => {
-    return text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>").replace(/\n/g, "<br>")
+    let formattedText = text
+    
+    // Bold text: **text** -> <strong>text</strong>
+    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong class="bold-text">$1</strong>')
+    
+    // Italic text: *text* -> <em>text</em>
+    formattedText = formattedText.replace(/\*((?!\*)(.*?)(?!\*))\*/g, '<em class="italic-text">$1</em>')
+    
+    // Code inline: `code` -> <code>code</code>
+    formattedText = formattedText.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
+    
+    // Code blocks: ```code``` -> <pre><code>code</code></pre>
+    formattedText = formattedText.replace(/```([\s\S]*?)```/g, '<pre class="code-block"><code>$1</code></pre>')
+    
+    // Underline: __text__ -> <u>text</u>
+    formattedText = formattedText.replace(/__(.*?)__/g, '<u class="underline-text">$1</u>')
+    
+    // Strike through: ~~text~~ -> <del>text</del>
+    formattedText = formattedText.replace(/~~(.*?)~~/g, '<del class="strike-text">$1</del>')
+    
+    // Highlight: ==text== -> <mark>text</mark>
+    formattedText = formattedText.replace(/==(.*?)==/g, '<mark class="highlight-text">$1</mark>')
+    
+    // Auto add emojis untuk kata-kata tertentu (bahasa Indonesia)
+    const emojiMappingID = {
+      'halo': 'halo 👋',
+      'hai': 'hai 👋',
+      'terima kasih': 'terima kasih 🙏',
+      'makasih': 'makasih 🙏',
+      'selamat': 'selamat 🎉',
+      'bagus': 'bagus 👍',
+      'keren': 'keren 🔥',
+      'mantap': 'mantap 💯',
+      'programming': 'programming 💻',
+      'coding': 'coding 👨‍💻',
+      'website': 'website 🌐',
+      'aplikasi': 'aplikasi 📱',
+      'database': 'database 🗄️',
+      'ai': 'AI 🤖',
+      'machine learning': 'machine learning 🧠',
+      'himasif': 'HIMASIF 🎓',
+      'universitas': 'universitas 🏫',
+      'kuliah': 'kuliah 📚',
+      'tugas': 'tugas 📝',
+      'ujian': 'ujian ✍️',
+      'lulus': 'lulus 🎓',
+      'berhasil': 'berhasil ✅',
+      'sukses': 'sukses 🌟',
+      'error': 'error ❌',
+      'bug': 'bug 🐛',
+      'fixed': 'fixed ✅',
+      'loading': 'loading ⏳',
+      'data': 'data 📊'
+    }
+    
+    // Auto add emojis untuk kata-kata bahasa Inggris dengan styling lebih fancy
+    const emojiMappingEN = {
+      'hello': '<span class="greeting">Hello 👋✨</span>',
+      'hi': '<span class="greeting">Hi 👋😊</span>',
+      'thanks': '<span class="gratitude">Thanks 🙏💖</span>',
+      'thank you': '<span class="gratitude">Thank you 🙏💖</span>',
+      'awesome': '<span class="positive">Awesome 🚀⭐</span>',
+      'amazing': '<span class="positive">Amazing 🤩✨</span>',
+      'great': '<span class="positive">Great 👌🔥</span>',
+      'excellent': '<span class="positive">Excellent 💯🌟</span>',
+      'perfect': '<span class="positive">Perfect 💎✨</span>',
+      'wonderful': '<span class="positive">Wonderful 🌈💫</span>',
+      'fantastic': '<span class="positive">Fantastic 🎆🚀</span>',
+      'cool': '<span class="positive">Cool 😎❄️</span>',
+      'nice': '<span class="positive">Nice 👌😊</span>',
+      'programming': '<span class="tech">Programming 💻⚡</span>',
+      'coding': '<span class="tech">Coding 👨‍💻🔥</span>',
+      'javascript': '<span class="tech">JavaScript 🟨⚡</span>',
+      'python': '<span class="tech">Python 🐍💚</span>',
+      'react': '<span class="tech">React ⚛️💙</span>',
+      'nodejs': '<span class="tech">Node.js 🟢⚡</span>',
+      'database': '<span class="tech">Database 🗄️📊</span>',
+      'api': '<span class="tech">API 🔌🌐</span>',
+      'website': '<span class="tech">Website 🌐✨</span>',
+      'app': '<span class="tech">App 📱🚀</span>',
+      'application': '<span class="tech">Application 📱💻</span>',
+      'ai': '<span class="ai-text">AI 🤖🧠</span>',
+      'artificial intelligence': '<span class="ai-text">Artificial Intelligence 🤖🧠✨</span>',
+      'machine learning': '<span class="ai-text">Machine Learning 🧠📊</span>',
+      'deep learning': '<span class="ai-text">Deep Learning 🧠🔥</span>',
+      'success': '<span class="success">Success ✅🎉</span>',
+      'completed': '<span class="success">Completed ✅💯</span>',
+      'done': '<span class="success">Done ✅😊</span>',
+      'finished': '<span class="success">Finished 🏁✨</span>',
+      'error': '<span class="error">Error ❌🚨</span>',
+      'bug': '<span class="error">Bug 🐛⚠️</span>',
+      'problem': '<span class="error">Problem ⚠️🔧</span>',
+      'issue': '<span class="error">Issue ⚠️📋</span>',
+      'loading': '<span class="loading">Loading ⏳🔄</span>',
+      'processing': '<span class="loading">Processing ⚙️⏳</span>',
+      'working': '<span class="loading">Working 🔧⚡</span>'
+    }
+    
+    // Apply Indonesian emoji mappings (simple replacement)
+    Object.entries(emojiMappingID).forEach(([word, replacement]) => {
+      const regex = new RegExp(`\\b${word}\\b`, 'gi')
+      formattedText = formattedText.replace(regex, replacement)
+    })
+    
+    // Apply English emoji mappings (with styling)
+    Object.entries(emojiMappingEN).forEach(([word, replacement]) => {
+      const regex = new RegExp(`\\b${word}\\b`, 'gi')
+      formattedText = formattedText.replace(regex, replacement)
+    })
+    
+    // Convert line breaks
+    formattedText = formattedText.replace(/\n/g, '<br>')
+    
+    // Add special effects for certain patterns
+    // Numbers with special styling
+    formattedText = formattedText.replace(/\b(\d+)\b/g, '<span class="number">$1</span>')
+    
+    // URLs with link styling (basic detection)
+    formattedText = formattedText.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" class="link">$1 🔗</a>')
+    
+    // Email addresses
+    formattedText = formattedText.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1" class="email">$1 📧</a>')
+    
+    return formattedText
   }
 
   const goHome = () => {
@@ -362,9 +496,7 @@ Silakan ketik pertanyaan Anda.`,
                                   shareMessage(message.text, message.id, "whatsapp")
                                 }}
                               >
-                                <span className="share-icon">
-                                  <img src={whatsapp || "/placeholder.svg"} />
-                                </span>
+                                <span className="share-icon">📱</span>
                                 <span>WhatsApp</span>
                               </button>
                               <button
@@ -374,9 +506,7 @@ Silakan ketik pertanyaan Anda.`,
                                   shareMessage(message.text, message.id, "telegram")
                                 }}
                               >
-                                <span className="share-icon">
-                                  <img src={telegram || "/placeholder.svg"} />
-                                </span>
+                                <span className="share-icon">✈️</span>
                                 <span>Telegram</span>
                               </button>
                               <button
@@ -386,9 +516,7 @@ Silakan ketik pertanyaan Anda.`,
                                   shareMessage(message.text, message.id, "twitter")
                                 }}
                               >
-                                <span className="share-icon">
-                                  <img src={x || "/placeholder.svg"} />
-                                </span>
+                                <span className="share-icon">🐦</span>
                                 <span>X</span>
                               </button>
                               <button

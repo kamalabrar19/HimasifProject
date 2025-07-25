@@ -209,7 +209,6 @@ Kunjungan ke perusahaan teknologi untuk mengenal dunia kerja dan networking deng
 • "Kegiatan apa saja di HIMASIF?"
 • "Bagaimana cara bergabung dengan HIMASIF?"
 
-*Untuk pengalaman AI yang lebih pintar seperti ChatGPT, silakan konfigurasi OpenRouter API key di file .env*
 
 Silakan tanyakan apapun tentang HIMASIF!
 """
