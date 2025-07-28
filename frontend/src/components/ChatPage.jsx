@@ -5,8 +5,11 @@ import { useLocation, useNavigate } from "react-router-dom"
 import Toast from "./Toast"
 import "./ChatPage.css"
 import ThemeToggle from "./ThemeToggle"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 //import image
 import logo from "../assets/images/himasif.png"
+import { faTelegram, faTwitter, faWhatsapp, faXTwitter } from "@fortawesome/free-brands-svg-icons"
+import { faCopy, faLink, faX } from "@fortawesome/free-solid-svg-icons"
 
 function ChatPage() {
   const location = useLocation()
@@ -21,7 +24,10 @@ function ChatPage() {
   const [hasProcessedInitialQuery, setHasProcessedInitialQuery] = useState(false) // TAMBAHAN: flag untuk mencegah double processing
   const messagesEndRef = useRef(null)
   const inputRef = useRef(null)
-  const initialQueryRef = useRef(null) // REF untuk initial query
+  const initialQueryRef = useRef(null) 
+  const chatContainerRef = useRef(null);
+  const messageContainerRef = useRef(null);
+  
 
   // Handle initial query from homepage - FIXED PROPERLY
   useEffect(() => {
@@ -64,8 +70,14 @@ Silakan ketik pertanyaan Anda.`,
   }, [messages])
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-  }
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+    }
+  };  
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);  
 
   const sendMessage = async (messageText = inputMessage) => {
     const textToSend = messageText.trim()
@@ -80,6 +92,7 @@ Silakan ketik pertanyaan Anda.`,
 
     setMessages((prev) => [...prev, userMessage])
     setInputMessage("") // Clear input setelah mengirim
+    inputRef.current?.focus()
     setIsLoading(true)
 
     try {
@@ -388,7 +401,7 @@ Silakan ketik pertanyaan Anda.`,
 
       {/* Chat Container */}
       <main className="chat-container">
-        <div className="messages-container">
+        <div className="messages-container" ref={messageContainerRef}>
           {messages.map((message) => (
             <div key={message.id} className={`message ${message.sender}`}>
               <div className="message-content">
@@ -496,7 +509,7 @@ Silakan ketik pertanyaan Anda.`,
                                   shareMessage(message.text, message.id, "whatsapp")
                                 }}
                               >
-                                <span className="share-icon">📱</span>
+                                <span className="share-icon"><FontAwesomeIcon icon={faWhatsapp} /></span>
                                 <span>WhatsApp</span>
                               </button>
                               <button
@@ -506,7 +519,7 @@ Silakan ketik pertanyaan Anda.`,
                                   shareMessage(message.text, message.id, "telegram")
                                 }}
                               >
-                                <span className="share-icon">✈️</span>
+                                <span className="share-icon"><FontAwesomeIcon icon={faTelegram} /></span>
                                 <span>Telegram</span>
                               </button>
                               <button
@@ -516,7 +529,7 @@ Silakan ketik pertanyaan Anda.`,
                                   shareMessage(message.text, message.id, "twitter")
                                 }}
                               >
-                                <span className="share-icon">🐦</span>
+                                <span className="share-icon"><FontAwesomeIcon icon={faXTwitter} /></span>
                                 <span>X</span>
                               </button>
                               <button
@@ -526,7 +539,7 @@ Silakan ketik pertanyaan Anda.`,
                                   shareMessage(message.text, message.id, "copy-link")
                                 }}
                               >
-                                <span className="share-icon">🔗</span>
+                                <span className="share-icon"><FontAwesomeIcon icon={faLink} /></span>
                                 <span>Copy Link</span>
                               </button>
                             </div>
@@ -564,7 +577,6 @@ Silakan ketik pertanyaan Anda.`,
               placeholder="Type your message..."
               className="message-input"
               rows="1"
-              disabled={isLoading}
             />
             <button onClick={() => sendMessage()} disabled={!inputMessage.trim() || isLoading} className="send-button">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none">

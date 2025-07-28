@@ -4,30 +4,29 @@ Modern minimalist AI chatbot untuk HIMASIF (Himpunan Mahasiswa Sistem Informasi)
 
 ## ✨ Features
 
+- **🔐 Login dengan Google** : Menggunakan Firebase Authentication
 - **🤖 AI-Powered Responses**: Menggunakan OpenRouter API dengan model DeepSeek
 - **📚 HIMASIF Knowledge Base**: Informasi lengkap tentang struktur organisasi, kegiatan, dan FAQ
-- **🎨 Modern Minimalist Design**: UI yang clean dan professional seperti ChatGPT
+- **🎨 Modern Minimalist Design**: UI yang modern dan professional =
 - **📱 Mobile Responsive**: Optimized untuk semua ukuran layar
 - **⚡ Real-time Chat**: Chat yang smooth dengan typing indicators
 - **🔄 Fallback AI**: Tetap bisa menjawab pertanyaan HIMASIF tanpa API key
+- **🌗 Toggle dark mode / light mode** : Dapa menyesuaikan mood pengguna
 
 ## 🛠️ Tech Stack
 
-### Frontend
-- **React 19.1.0** - UI Framework
-- **Vite 6.3.5** - Build tool dan dev server
-- **Modern CSS** - Minimalist design dengan CSS variables
-- **System Fonts** - Clean typography
-
-### Backend
-- **Flask 2.3.3** - Python web framework
-- **OpenRouter API** - AI model integration (opsional)
-- **Flask-CORS** - Cross-origin resource sharing
-- **Gunicorn** - Production WSGI server
+| Layer    | Teknologi                           |
+| -------- | ----------------------------------- |
+| Frontend | React + Vite, Context API, Tailwind |
+| Backend  | Flask, Flask-CORS                   |
+| Auth     | Firebase Authentication             |
+| AI       | OpenRouter API (opsional)           |
+| Data     | JSON statis (himasif_data.json)     |
 
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - **Python**: 3.8+ (Recommended: 3.11.7)
 - **Node.js**: 16+ (Recommended: 18.19.0)
 - **npm**: 8+ (comes with Node.js)
@@ -35,17 +34,20 @@ Modern minimalist AI chatbot untuk HIMASIF (Himpunan Mahasiswa Sistem Informasi)
 - **OpenRouter API Key**: For AI functionality (optional for HIMASIF-only features)
 
 ### 1. Clone Repository
+
 ```bash
 git clone <repository-url>
 cd HimasifProject
 ```
 
 ### 2. Check Requirements (Optional)
+
 ```bash
 python check-requirements.py
 ```
 
 ### 3. Automated Setup (Recommended)
+
 ```bash
 # Windows
 setup.bat
@@ -57,6 +59,7 @@ chmod +x setup.sh && ./setup.sh
 ### 4. Manual Setup
 
 #### Backend Setup
+
 ```bash
 cd backend
 pip install -r requirements.txt
@@ -64,6 +67,7 @@ cd ..
 ```
 
 #### Frontend Setup
+
 ```bash
 cd frontend
 npm install
@@ -71,6 +75,7 @@ cd ..
 ```
 
 #### Environment Setup
+
 ```bash
 # Copy environment template
 cp .env.example .env
@@ -80,10 +85,13 @@ cp .env.example .env
 ```
 
 ### 5. Start Development Servers
+
 ```bash
 # Automated (Recommended)
-# Windows: start-dev.bat
-# Linux/Mac: ./start-dev.sh
+# Windows
+./start-dev.bat
+# Mac/Linux
+chmod +x start-dev.sh && ./start-dev.sh
 
 # Manual
 # Terminal 1 - Backend
@@ -94,6 +102,7 @@ cd frontend && npm run dev
 ```
 
 ### 6. Access Application
+
 - **Frontend**: http://localhost:5173
 - **Backend API**: http://localhost:5000
 - **Health Check**: http://localhost:5000/health
@@ -104,7 +113,7 @@ Untuk pengalaman AI yang lebih pintar seperti ChatGPT:
 
 1. **Daftar di OpenRouter**: [openrouter.ai](https://openrouter.ai)
 2. **Dapatkan API key**: [openrouter.ai/keys](https://openrouter.ai/keys)
-3. **Edit file `.env`**:
+3. **Edit file `.env`** (file .env di folder backend):
    ```
    OPENROUTER_API_KEY=sk-or-v1-your-api-key-here
    ```
@@ -115,44 +124,50 @@ Untuk pengalaman AI yang lebih pintar seperti ChatGPT:
 ## 📁 Project Structure
 
 ```
-HimasifProject/
-├── 📁 backend/                 # Flask backend
-│   ├── app.py                 # Main Flask application
-│   ├── requirements.txt       # Python dependencies
-│   ├── gunicorn_config.py     # Production configuration
-│   └── Procfile              # Deployment configuration
-├── 📁 frontend/               # React frontend
-│   ├── 📁 src/
-│   │   ├── App.jsx           # Main chat component
-│   │   ├── App.css           # Modern minimalist styling
-│   │   ├── index.css         # Global styles
-│   │   └── main.jsx          # Entry point
-│   ├── index.html            # HTML template
-│   ├── package.json          # Node.js dependencies
-│   └── vite.config.js        # Vite configuration
-├── 📁 static/
-│   └── 📁 data/
-│       └── himasif_data.json # HIMASIF knowledge base
-├── 📄 requirements.txt        # Root Python dependencies
-├── 📄 .env.example           # Environment template
-├── 📄 setup.bat/.sh          # Setup scripts
-├── 📄 start-dev.bat/.sh      # Development scripts
-├── 📄 check-requirements.py  # Requirements checker
-├── 📄 INSTALLATION.md        # Detailed installation guide
-├── 📄 API_SETUP_GUIDE.md     # API setup guide
-├── 📄 DEPLOYMENT.md          # Deployment guide
-└── 📄 README.md              # This file
+360AI-HIMASIF/
+├── backend/
+│   ├── app.py
+│   ├── static/data/himasif_data.json
+│   └── requirements.txt
+├── frontend/
+│   ├── assets/
+│   │   ├── fonts/
+│   │   └── images.jsx
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── ChatPage.jsx
+│   │   │   ├── ChatPage.css
+│   │   │   ├── HomePage.jsx
+│   │   │   ├── HomePage.css
+│   │   │   ├── LoginButton.jsx
+│   │   │   ├── ThemeToggle.jsx
+│   │   │   ├── ThemeToggle.css
+│   │   │   ├── Toast.jsx
+│   │   │   └── Toast.css
+│   │   ├── context/ThemeContext.jsx
+│   │   ├── lib/firebase.js
+│   │   ├── App.jsx
+│   │   ├── App.css
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── public/vite.svg
+│   └── vite.config.js
+├── setup.sh / setup.bat
+├── start-dev.sh / start-dev.bat
+└── README.md
 ```
 
 ## 🎯 Usage Examples
 
 ### Without API Key (HIMASIF Features)
+
 - "Apa itu HIMASIF?"
 - "Siapa ketua umum HIMASIF?"
 - "Kegiatan apa saja di HIMASIF?"
 - "Bagaimana cara bergabung dengan HIMASIF?"
 
 ### With API Key (Full AI Features)
+
 - "Jelaskan tentang Python programming"
 - "Bagaimana cara membuat website?"
 - "Apa itu machine learning?"
@@ -162,11 +177,13 @@ HimasifProject/
 ## 🧪 Testing
 
 ### Test Backend
+
 ```bash
 python test_backend.py
 ```
 
 ### Test Requirements
+
 ```bash
 python check-requirements.py
 ```
@@ -174,6 +191,7 @@ python check-requirements.py
 ## 🚀 Deployment
 
 ### Build for Production
+
 ```bash
 # Build frontend
 cd frontend
@@ -185,6 +203,7 @@ gunicorn -c gunicorn_config.py app:app
 ```
 
 ### Deployment Platforms
+
 - **Heroku**: Ready with Procfile and runtime.txt
 - **Vercel**: Frontend deployment ready
 - **Railway**: Full-stack deployment
@@ -196,24 +215,13 @@ See `DEPLOYMENT.md` for detailed deployment instructions.
 ## 📊 HIMASIF Data
 
 Knowledge base mencakup:
+
 - **Organisasi**: Visi, misi, struktur lengkap
 - **Pengurus**: BPH, Departemen PSDM & Relasi, 7 divisi
 - **Anggota**: 15+ data pengurus dengan jabatan
 - **Kegiatan**: Seminar, Workshop, Kunjungan Industri
 - **FAQ**: 15+ pertanyaan umum dengan jawaban
 - **Kontak**: Social media dan informasi kontak
-
-## 🎨 Design System
-
-### Color Palette (Modern Minimalist)
-- **Primary**: `#1a365d` (Dark blue)
-- **Accent**: `#3182ce` (Blue)
-- **Background**: `#f7fafc` (Light gray)
-- **Text**: `#2d3748` (Dark gray)
-
-### Typography
-- **Font**: System fonts (-apple-system, BlinkMacSystemFont, Segoe UI)
-- **Weights**: 400, 500, 600
 
 ## 🤝 Contributing
 
@@ -230,6 +238,7 @@ Distributed under the MIT License.
 ## 👥 Team
 
 **HIMASIF UPJ** - Himpunan Mahasiswa Sistem Informasi
+
 - Instagram: [@himasif360upj](https://www.instagram.com/himasif360upj/)
 - YouTube: [Sistem Informasi UPJ](https://www.youtube.com/@sisteminformasiupj8380)
 

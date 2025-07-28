@@ -3,7 +3,7 @@
   position: fixed;
   top: 2rem;
   right: 2rem;
-  background: rgba(15, 15, 35, 0.95);
+  background: #121216;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 0.75rem;
   padding: 1rem;
@@ -99,4 +99,33 @@
   .toast-message {
     font-size: 0.8rem;
   }
+}
+
+body.light .toast {
+  background: #f9fafb;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+body.light .toast-message, body.light .toast-close {
+  color: #4b5563;
+}
+
+body.light .toast-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+body.light .toast-success {
+  border-left: 4px solid #19c5b7; /* warna versi light */
+}
+
+body.light .toast-error {
+  border-left: 4px solid #d86969;
+}
+
+body.light .toast-info {
+  border-left: 4px solid #7b9eea;
+}
+
+body.light .toast-warning {
+  border-left: 4px solid #eca656;
 }
