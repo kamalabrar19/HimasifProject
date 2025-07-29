@@ -20,7 +20,7 @@ Modern minimalist AI chatbot untuk HIMASIF (Himpunan Mahasiswa Sistem Informasi)
 | Frontend | React + Vite, Context API, Tailwind |
 | Backend  | Flask, Flask-CORS                   |
 | Auth     | Firebase Authentication             |
-| AI       | OpenRouter API (opsional)           |
+| AI       | OpenRouter API                      |
 | Data     | JSON statis (himasif_data.json)     |
 
 ## 🚀 Quick Start
@@ -31,7 +31,7 @@ Modern minimalist AI chatbot untuk HIMASIF (Himpunan Mahasiswa Sistem Informasi)
 - **Node.js**: 16+ (Recommended: 18.19.0)
 - **npm**: 8+ (comes with Node.js)
 - **Git**: Latest version
-- **OpenRouter API Key**: For AI functionality (optional for HIMASIF-only features)
+- **OpenRouter API Key**: For AI functionality
 
 ### 1. Clone Repository
 
@@ -111,13 +111,11 @@ cd frontend && npm run dev
 
 Untuk pengalaman AI yang lebih pintar seperti ChatGPT:
 
-1. **Daftar di OpenRouter**: [openrouter.ai](https://openrouter.ai)
-2. **Dapatkan API key**: [openrouter.ai/keys](https://openrouter.ai/keys)
-3. **Edit file `.env`** (file .env di folder backend):
+1. **Edit file `.env`** (file .env di folder backend):
    ```
-   OPENROUTER_API_KEY=sk-or-v1-your-api-key-here
+   OPENROUTER_API_KEY=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
    ```
-4. **Restart backend server**
+2. **Restart backend server**
 
 **Catatan**: Chatbot tetap berfungsi tanpa API key untuk pertanyaan HIMASIF!
 

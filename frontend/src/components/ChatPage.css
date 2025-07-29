@@ -321,6 +321,41 @@
   text-align: left;
 }
 
+.bold-text {
+  font-weight: bold;
+}
+
+.italic-text {
+  font-style: italic;
+}
+
+.inline-code {
+  font-family: monospace;
+  background-color: #f4f4f4;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.code-block {
+  background-color: #f4f4f4;
+  padding: 12px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: monospace;
+}
+
+.underline-text {
+  text-decoration: underline;
+}
+
+.strike-text {
+  text-decoration: line-through;
+}
+
+.highlight-text {
+  background-color: yellow;
+}
+
 /* Message Footer with Actions */
 .message-footer {
   display: flex;

@@ -145,17 +145,17 @@ Silakan ketik pertanyaan Anda.`,
   const formatMessage = (text) => {
     let formattedText = text
     
+    // Code blocks: ```code``` -> <pre><code>code</code></pre>
+    formattedText = formattedText.replace(/```([\s\S]*?)```/g, '<pre class="code-block"><code>$1</code></pre>')
+    
+    // Code inline: `code` -> <code>code</code>
+    formattedText = formattedText.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
+    
     // Bold text: **text** -> <strong>text</strong>
     formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong class="bold-text">$1</strong>')
     
     // Italic text: *text* -> <em>text</em>
     formattedText = formattedText.replace(/\*((?!\*)(.*?)(?!\*))\*/g, '<em class="italic-text">$1</em>')
-    
-    // Code inline: `code` -> <code>code</code>
-    formattedText = formattedText.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
-    
-    // Code blocks: ```code``` -> <pre><code>code</code></pre>
-    formattedText = formattedText.replace(/```([\s\S]*?)```/g, '<pre class="code-block"><code>$1</code></pre>')
     
     // Underline: __text__ -> <u>text</u>
     formattedText = formattedText.replace(/__(.*?)__/g, '<u class="underline-text">$1</u>')
@@ -551,6 +551,7 @@ Silakan ketik pertanyaan Anda.`,
                 </div>
               </div>
             </div>
+
           ))}
           {isLoading && (
             <div className="message bot">
